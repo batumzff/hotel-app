@@ -1,0 +1,21 @@
+.detail-container {
+   display: flex;
+   flex-direction: column;
+   flex-wrap: wrap;
+   gap: .5rem;
+   font-family: "Righteous";
+   text-align: center;
+   color: darkolivegreen;
+
+   & img {
+    border-radius: .5rem;
+    box-shadow: 1px 1px 10px;
+    width: 500px;
+
+   }
+
+   & .details {
+    width: 400px;
+    margin-left: 3rem;
+   }
+}
