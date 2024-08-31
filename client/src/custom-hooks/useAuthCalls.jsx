@@ -10,7 +10,7 @@ const useAuthCalls = () => {
     const dispatch = useDispatch()
 
 
-    const register = async (userInfo) => {
+    const registerUser = async (userInfo) => {
         dispatch(fetchStart())
         try {
             const { data } = await axiosPublic.post("users",userInfo)
@@ -47,7 +47,7 @@ const useAuthCalls = () => {
 
 
 
-  return { register, login, logout }
+  return { registerUser, login, logout }
 }
 
 export default useAuthCalls
