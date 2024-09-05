@@ -1,16 +1,18 @@
 // import { FaTelegramPlane } from "react-icons/fa";
 
-import "./Footer.css"
+import { Box, Stack } from "@mui/material"
+
+
 
 const Footer = () => {
   return (
-    <footer>
-      <section>
-        <div >
+    <Box>
+      <Stack>
+        <div>
         {/* <FaTelegramPlane /> */}
         </div>
-      </section>
-    </footer>
+      </Stack>
+    </Box>
   )
 }
 

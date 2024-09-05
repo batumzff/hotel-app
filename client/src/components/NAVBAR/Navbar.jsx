@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
@@ -19,8 +20,10 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import logo from "../../assets/images/logo.png";
-import { Stack } from "@mui/material";
+import { ListItemButton, Stack } from "@mui/material";
+import useAuthCalls from "../../custom-hooks/useAuthCalls";
 
+// ! styled elements for search part
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -59,38 +62,64 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
+// !--------------------------------------------
+
+// ! Navigation
+const navigation = [
+  { name: "Home", to: "/" },
+  { name: "Rooms", to: "/rooms" },
+  { name: "About", to: "/about" },
+  { name: "Contact", to: "/contact" },
+  { name: "Booking", to: "/booking" },
+  { name: "Login", to: "/login" },
+  { name: "Register", to: "/register" },
+];
+// !-------------------------------------------
+
+const navbarNavigation = navigation.filter((item, index) => index < 5 && item)
 
 export default function Navbar() {
+  const { user, token } = useSelector((state) => state.auth);
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const { logout } = useAuthCalls();
+
+  console.log(user);
+  console.log(token);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
+  const handleLogout = () => {
+    logout();
+  };
+
+  console.log(navigation);
+
+  // ! Drawer - Sidebar
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        MUI
+        <img src={logo} alt="logo" width="150px" style={{ padding: "10px" }} />
       </Typography>
       <List>
-        <ListItem button component={Link} to="/">
-          <ListItemText primary="Home" />
-        </ListItem>
-        <ListItem button component={Link} to="/rooms">
-          <ListItemText primary="Rooms" />
-        </ListItem>
-        <ListItem button component={Link} to="/about">
-          <ListItemText primary="About" />
-        </ListItem>
-        <ListItem button component={Link} to="/contact">
-          <ListItemText primary="Contact" />
-        </ListItem>
-        <ListItem button component={Link} to="/booking">
-          <ListItemText primary="Booking" />
-        </ListItem>
+        {navigation.map((item) => (
+          <React.Fragment key={item.name}>
+           { token && item.name == "Login" ? (
+            <ListItemButton onClick={handleLogout}>
+              <ListItemText primary="Log out" />
+            </ListItemButton>
+            ) : token && item.name == "Register" ? ( "" ) : (
+            <ListItemButton component={Link} to={item.to}>
+              <ListItemText primary={item.name} />
+            </ListItemButton>
+            )}
+          </React.Fragment>
+        ))}
       </List>
     </Box>
   );
+
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -101,7 +130,7 @@ export default function Navbar() {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
+            sx={{ mr: 2, display: { sm: "flex" } }}
           >
             <MenuIcon />
           </IconButton>
@@ -111,7 +140,12 @@ export default function Navbar() {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
-            <img src={logo} alt="logo" width="150px" style={{padding:"10px"}} />
+            <img
+              src={logo}
+              alt="logo"
+              width="150px"
+              style={{ padding: "10px" }}
+            />
           </Typography>
           <Search sx={{ display: { xs: "none", sm: "flex", md: "flex" } }}>
             <SearchIconWrapper>
@@ -123,56 +157,21 @@ export default function Navbar() {
             />
           </Search>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <Link
-              to="/"
-              style={{
-                textDecoration: "none",
-                color: "white",
-                marginRight: "20px",
-              }}
-            >
-              Home
-            </Link>
-            <Link
-              to="/rooms"
-              style={{
-                textDecoration: "none",
-                color: "white",
-                marginRight: "20px",
-              }}
-            >
-              Rooms
-            </Link>
-            <Link
-              to="/about"
-              style={{
-                textDecoration: "none",
-                color: "white",
-                marginRight: "20px",
-              }}
-            >
-              About
-            </Link>
-            <Link
-              to="/contact"
-              style={{
-                textDecoration: "none",
-                color: "white",
-                marginRight: "20px",
-              }}
-            >
-              Contact
-            </Link>
-            <Link
-              to="/booking"
-              style={{
-                textDecoration: "none",
-                color: "white",
-                marginRight: "20px",
-              }}
-            >
-              Booking
-            </Link>
+            {
+              navbarNavigation.map(item => (
+                <Link
+                to={item.to}
+                key={item.name}
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                  marginRight: "20px",
+                }}
+              >
+                {item.name}
+              </Link>
+              ))
+            }
           </Box>
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton
@@ -215,7 +214,7 @@ export default function Navbar() {
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: "block", sm: "none" },
+            display: { xs: "block", sm: "block" },
             "& .MuiDrawer-paper": { boxSizing: "border-box", width: 240 },
           }}
         >
