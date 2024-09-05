@@ -1,39 +1,18 @@
-import { useEffect, useState } from "react"
-import useRooms from "../../custom-hooks/useRooms"
-import { useSelector } from "react-redux"
-import "./Room.css"
-
-
+import Box from "@mui/material/Box";
+import RoomCard from "../../components/ROOM-CARD/RoomCard";
 
 const Rooms = () => {
-    // const [rooms, setRooms] = useState([])
-  const { getRoomsInfo } = useRooms()
-  const { rooms } = useSelector(state => state?.room)
- const data = rooms?.payload?.data
-  //  console.log(data);
-  // console.log(rooms.payload.data);
-  useEffect(() => {
-    getRoomsInfo()
-  }, [])
-  
-    
   return (
-    <main>
-       <section className="rooms">
-        { data?.map(item => (
-          <div className="main-room"  key={item._id}>
-              <span> {item.roomNumber} </span>
-         <span className="bed-type">{item.bedType}</span> 
-         { item.image.map(address => (
-          <img key={address} src={address} alt="image" width="250px" />
-         ))}
-         
-          </div>
-       
-        ))}
-       </section>
-    </main>
-  )
-}
+    <Box
+      sx={{
+        flexGrow: 1,
+        marginLeft: "5rem",
+        // padding:"3rem"
+      }}
+    >
+      <RoomCard />
+    </Box>
+  );
+};
 
-export default Rooms
+export default Rooms;
