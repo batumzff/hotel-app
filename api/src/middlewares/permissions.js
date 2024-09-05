@@ -35,11 +35,11 @@ module.exports = {
 
         // next()
 
-        if (req.user && req.user.isActive && req.user.isAdmin) {
+        if (req.user && req.user.isActive &&( req.user.isAdmin || req.user.isStaff)) {
             next()
         } else {
             res.errorStatusCode = 403
-            throw new Error(' You must login and must be staff.')
+            throw new Error(' You must login and must be admin.')
         }
     }
 }

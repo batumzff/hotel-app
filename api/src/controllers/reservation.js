@@ -37,12 +37,19 @@ module.exports = {
   create: async (req, res) => {
     let { username, guest_number, departure_date, arrival_date } = req.body;
 
-    const currentDate = Date.now();
-    const arrival = new Date(arrival_date); //! arrival_date in milliseconds
-    const departure = new Date(departure_date); //! departure_date in
-    const notPassed = currentDate > arrival || currentDate > departure;
-    const invalidDate = arrival > departure;
+// console.log("reservation: ",username);
+// console.log("reservation: ",guest_number);
+// console.log("reservation: ",departure_date);
+// console.log("reservation: ",arrival_date);
 
+    const currentDate = Date.now();
+    const arrival = new Date(arrival_date).getTime(); //! arrival_date in milliseconds
+    const departure = new Date(departure_date).getTime(); //! departure_date in
+    const notPassed = currentDate < arrival || currentDate > departure;
+    const invalidDate = arrival > departure;
+// console.log(arrival, typeof arrival); 
+// console.log(arrival == currentDate); 
+// console.log(arrival < currentDate); 
     if (notPassed || invalidDate) {
       res.errorStatusCode = 400;
       throw new Error("Please enter valid dates");
@@ -80,6 +87,8 @@ module.exports = {
       room = await Room.find({ bedType: req.body.bedType });
     }
     // find reserved rooms and stor if it is note them in array as a string
+
+    console.log("room: ", room);
     const reservedRooms = await Reservation.find({
       bedType: room.bedType,
       $nor: [
@@ -88,12 +97,15 @@ module.exports = {
       ],
     }).distinct("roomId")
     
+console.log("reservedRooms: ",reservedRooms);
+
     let reservedRoomsArr = []
     for (let reservedRoom of reservedRooms) {
       reservedRoomsArr.push(reservedRoom.roomId)
     }
-    // filter the rooms usung not in function and giving the bedTyoe option.
+    // filter the rooms using not in function and giving the bedType option.
     const availableRooms = await Room.find({ '_id': { $nin: reservedRoomsArr }, "bedType": room[0].bedType })
+    console.log("available rooms:", availableRooms);
     // if it is not found throw an error
     if (availableRooms.length === 0) throw new Error("the room you are looking for is not empty at the period of time you requested")
 
@@ -105,7 +117,7 @@ module.exports = {
 
     // create a reservation 
     const data = await Reservation.create(req.body);
-
+console.log("data in reservation: ", data);
     res.status(201).send({
       error: false,
       data,
@@ -151,34 +163,3 @@ module.exports = {
   },
 };
 
-// const hiredRoom = availableRooms.push(room[0]._id)
-
-// console.log("hired room is =>",hiredRoom);
-
-
-// const reservedRooms = await Reservation.find({
-//   $or: [
-//     { arrival_date: { $gte: arrival_date, $lte: departure_date } }, // Giriş tarihi bu tarih aralığında olanlar
-//     { departure_date: { $gte: arrival_date, $lte: departure_date } }, // Çıkış tarihi bu tarih aralığında olanlar
-//   ],
-//   roomId: room[0].id,
-// }).populate({ path: "roomId", select: "-_id roomNumber" });
-
-// const allRooms = await Room.find();
-// const availableRooms = allRooms.filter(
-//   (room) => !reservedRooms.includes(room._id)
-// );
-// console.log(req.body.roomId);
-// if(availableRoom){
-//   throw new Error("The room is not available now, You must enter different time")
-// }
-// console.log(room[0].bedType);
-
-
-//  const availableRooms =  await Reservation.find({
-//   bedType:room.bedType,
-//             $nor: [
-//                 { startDate: { $gt: req.body.endDate } },
-//                 { endDate: { $lt: req.body.startDate } }
-//             ]
-//  })
