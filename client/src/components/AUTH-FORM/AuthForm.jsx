@@ -6,9 +6,12 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema, registerSchema } from "../../Helpers/formValidation";
 import { formRegisterInputs, formLoginInputs } from "../../Helpers/formInputs";
-// import { DevTool } from "@hookform/devtools";
-
-import "./AuthForm.css";
+import { DevTool } from "@hookform/devtools";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Stack from "@mui/material/Stack";
+import MyButton from "../FORM-INPUTS/MyButton";
+import  Typography from "@mui/material/Typography";
 
 const schemaMap = {
   loginSchema,
@@ -32,10 +35,6 @@ const AuthForm = ({ formType, schema }) => {
     reset,
   } = useForm({ resolver: yupResolver(resolvedSchema) });
 
-  const handleQuillChange = (name, content) => {
-    setValue(name, content);
-  };
-
   const onSubmit = (data) => {
     console.log("submit data", data);
     formType == "register"
@@ -48,82 +47,83 @@ const AuthForm = ({ formType, schema }) => {
   }, [isSubmitSuccessful, reset]);
 
   const handleNavigate = () => {
+    console.log("handle navigate active");
     formType === "login" ? navigate("/register") : navigate("/login");
   };
 
   return (
-    <section >
-      <main>
-        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+    <Box sx={{padding:"1rem", display:"flex", justifyContent: "center", alignItems: "center"}}>
+      <Stack
+      sx={{justifyContent:"center", alignItems:"center",border:"2px solid gray", width:"25rem", borderRadius:".4rem", boxShadow:"0 4px 10px rgba(0, 0, 0, 0.3)"}}
+      >
+        <Typography>{formType === "login" ? "" : "Register Form"}</Typography>
+        <Box
+          component="form"
+          sx={{ '& .MuiTextField-root': { m: 1, width: '25ch' },  display:"flex", flexDirection:"column",  justifyContent:"center", alignItems:"center"}}
+          noValidate
+          autoComplete="off"
+         onSubmit={handleSubmit(onSubmit)}>
           {formType == "register"
-            ? formRegisterInputs.map((item) =>
-                item.type == "quill" ? (
-                  <section key={item.name} >
-                    <label htmlFor={item.id} >
-                      {item.label}
-                    </label>
-                    <textarea name="content" id=""></textarea>
-                  </section>
-                ) : (
-                  <section key={item.name} >
-                    <input
+            ? formRegisterInputs.map((item) => 
+                (
+                  <Stack key={item.name} sx={{justifyContent:"center", alignItems:"center"}}>
+                    <TextField
                       data-test={item["data-test"]}
+                      label={item.label}
                       type={item.type}
-                      id={item.name}
+                      id={item.id}
                       name={item.name}
-                      placeholder=" "
                       {...register(item.name)}
                     />
-                    <label htmlFor={item.name} >
-                      {item.label}
-                    </label>
-                    <p >{errors[item.name]?.message}</p>
-                  </section>
+                    <Box>{errors[item.name]?.message}</Box>
+                  </Stack>
                 )
               )
             : formLoginInputs.map((item) => (
-                <section key={item.name} >
-                  <input
+                <Stack key={item.name} sx={{justifyContent:"center", alignItems:"center", gap:".5rem"}}>
+                  <TextField
                     data-test={item["data-test"]}
+                    label={item.label}
                     type={item.type}
                     id={item.name}
                     name={item.name}
                     placeholder=" "
                     {...register(item.name)}
                   />
-                  <label htmlFor={item.name} >
-                    {item.label}
-                  </label>
-                  <p >{errors[item.name]?.message}</p>
-                </section>
+                  <Typography>{errors[item.name]?.message}</Typography>
+                </Stack>
               ))}
-          <button type="submit" disabled={isSubmitting} data-test="loginSubmit">
+          <MyButton
+            type="submit"
+            disabled={isSubmitting}
+            data-test="loginRegisterSubmit"
+          >
             {isSubmitting
               ? "Submitting..."
               : formType === "register"
               ? "Register"
               : "Login"}
-          </button>
-          {
-            <section >
-              <span>
+          </MyButton>
+          
+            <Stack>
+              <Box>
                 {formType === "login"
                   ? "Don't have an account?"
                   : "Already have an account"}
-              </span>
-              <button
-                style={{ width: "5rem", marginLeft: "1rem" }}
+              </Box>
+              <MyButton
+                // style={{ width: "5rem" }}
                 onClick={handleNavigate}
                 data-test="loginRegisterButton"
               >
-                {formType === "login" ? "Register" : "Login"}
-              </button>
-            </section>
-          }
-        </form>
-        {/* <DevTool control={control} /> */}
-      </main>
-    </section>
+                {formType === "login" ? "Register Page" : "Login Page"}
+              </MyButton>
+            </Stack>
+          
+        </Box>
+        <DevTool control={control} />
+      </Stack>
+    </Box>
   );
 };
 

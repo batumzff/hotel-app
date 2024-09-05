@@ -57,7 +57,6 @@ export default function FormPropsTextFields() {
           helperText="Some important text"
         />
       </div>
-
     </Box>
   );
 }
