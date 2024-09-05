@@ -5,9 +5,11 @@ const Rooms = () => {
   return (
     <Box
       sx={{
-        flexGrow: 1,
-        marginLeft: "5rem",
-        // padding:"3rem"
+        margin: "1rem auto",
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column",
+        alignItems: "center",
       }}
     >
       <RoomCard />

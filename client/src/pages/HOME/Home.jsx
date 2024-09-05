@@ -1,13 +1,13 @@
-import "./Home.css"
+import { Box, Typography } from "@mui/material";
+import RoomCard from "../../components/ROOM-CARD/RoomCard";
 
 const Home = () => {
-
   return (
-    <main>
-<h1>Welcome to PyScript Hotels Group</h1>
+    <Box sx={{display:"flex", justifyContent:"center", flexDirection:"column", alignItems:"center"}}>
+      <Typography variant="h3">Welcome to PyScript Hotels Group</Typography>
+      <RoomCard/>
+    </Box>
+  );
+};
 
-    </main>
-  )
-}
-
-export default Home
+export default Home;
