@@ -6,8 +6,7 @@ import Calendar from "../../components/FORM-INPUTS/Calendar";
 import MyButton from "../../components/FORM-INPUTS/MyButton";
 import SelectOption from "../../components/FORM-INPUTS/SelectOption";
 import useRooms from "../../custom-hooks/useRooms";
-import BookingModal from "../../components/BOOKING-MODAL/BookingModal";
-import ErrorPage from "../../components/ERROR-PAGE/ErrorPage"
+import ErrorModal from "../../components/ERROR-MODAL/ErrorModal";
 
 const guestNumber=[]
 for(let i in [...Array(10)]){
@@ -82,7 +81,7 @@ const Booking = () => {
         alignItems: "center",
       }}
     >
-      <ErrorPage/>
+      <ErrorModal/>
      <Typography variant="h4">Let's find a Reservation for you </Typography>
       <Stack
         sx={{

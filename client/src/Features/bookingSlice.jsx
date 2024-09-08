@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
     booking:[],
     loading: false,
-    error: false
+    error: false,
+    errorBookingMessage:""
 }
 
 export const bookingSlice = createSlice({
@@ -23,13 +24,17 @@ export const bookingSlice = createSlice({
                 }
             },
 
-            fetchFail:(state) => {
+            fetchFail:(state, { payload }) => {
                 state.loading = false
-                state.error = true
+                state.error = true,
+                state.errorBooking = payload?.response?.data?.message
             },
+            clearBookingError: (state) => {
+                state.error = false;
+              },
     }
 })
 
-export const { fetchStart, getReservation, fetchFail } = bookingSlice.actions
+export const { fetchStart, getReservation, fetchFail, clearBookingError } = bookingSlice.actions
 
 export default bookingSlice.reducer

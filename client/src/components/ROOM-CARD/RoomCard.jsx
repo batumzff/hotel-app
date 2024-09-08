@@ -18,6 +18,7 @@ import { Box } from "@mui/material";
 import MyButton from "../FORM-INPUTS/MyButton";
 import logo from "../../assets/images/logo.png";
 import Grid from "@mui/material/Grid2"; // Import Grid from material UI
+import RatingStatus from "../RATING/RatingStatus";
 
 const RoomCard = ({ detail }) => {
   const { roomId } = useParams();
@@ -35,7 +36,7 @@ const RoomCard = ({ detail }) => {
   }, [roomId]);
 
   return (
-    <Grid container spacing={4} sx={{placeContent:"center"}}>
+    <Grid container spacing={4} sx={{ placeContent: "center" }}>
       {" "}
       {/* Add spacing between grid items */}
       {roomId ? (
@@ -72,9 +73,8 @@ const RoomCard = ({ detail }) => {
               </Typography>
             </CardContent>
             <CardActions disableSpacing>
-              <IconButton aria-label="add to favorites">
-                <FavoriteIcon />
-              </IconButton>
+              <RatingStatus roomId={roomId} />
+
               <IconButton aria-label="share">
                 <ShareIcon />
               </IconButton>
@@ -107,11 +107,11 @@ const RoomCard = ({ detail }) => {
                 image={room.image[0]}
                 alt={room.roomNumber}
               />
-              <CardContent >
+              <CardContent>
                 <Typography
                   variant="body2"
                   sx={{
-                    width:"25rem",
+                    width: "25rem",
                     color: "text.secondary",
                     webkitBoxOrient: "vertical",
                     webkitLineClamp: "3",
@@ -125,15 +125,12 @@ const RoomCard = ({ detail }) => {
                   }}
                 >
                   {room.description}
-                  
                 </Typography>
               </CardContent>
               <CardActions
                 sx={{ display: "flex", justifyContent: "space-around" }}
               >
-                <IconButton aria-label="add to favorites">
-                  <FavoriteIcon />
-                </IconButton>
+                <RatingStatus readOnlyStatus={room.averageRating} />
                 <IconButton aria-label="share">
                   <ShareIcon />
                 </IconButton>
