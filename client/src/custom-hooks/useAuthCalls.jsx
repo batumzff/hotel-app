@@ -16,7 +16,7 @@ const useAuthCalls = () => {
             const { data } = await axiosPublic.post("users",userInfo)
             dispatch(registerSuccess(data))
         } catch (error) {
-            dispatch(fetchFail())
+            dispatch(fetchFail(error))
             console.error(error)
         }
     }
@@ -28,7 +28,7 @@ const useAuthCalls = () => {
             dispatch(loginSuccess(data))
             navigate("/booking")
         } catch (error) {
-            dispatch(fetchFail())
+            dispatch(fetchFail(error))
             console.error(error)
         }
     }
@@ -39,7 +39,7 @@ const useAuthCalls = () => {
             dispatch(logoutSuccess())
             navigate("/")
         } catch (error) {
-            dispatch(fetchFail())
+            dispatch(fetchFail(error))
             console.error(error)
         }
     }

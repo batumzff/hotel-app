@@ -6,52 +6,51 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { Box, Typography } from "@mui/material";
 
-const SelectOption = forwardRef(({ id, label, value, rooms = [] }, ref) => {
+const SelectOption = forwardRef(({ id, label, value, rooms = [], guests=[], onChange,disabled = false }, ref) => {
   const [choice, setChoice] = React.useState("");
 
   const handleChange = (event) => {
     setChoice(event.target.value);
+    // onChange(event.target.value);
+    if (typeof onChange === "function") {
+      onChange(event.target.value);
+    }
   };
 
-useImperativeHandle (ref, ()=>({getBedType: ()=> choice})
-)
-  console.log("rooms in select option", rooms);
-  console.log("room in select option", choice);
+  useImperativeHandle(ref, () => ({ getSelectedValue: () => choice }));
+  // console.log("rooms in select option", rooms);
+  // console.log("choice in select option", choice);
+  // console.log("guests in select option", guests);
+  const items = rooms.length > 0 ? rooms : guests;
   return (
-    <Box
-      sx={{ border: "2px solid gray", borderRadius: ".5rem", padding: "1rem" }}
-    >
-      <FormControl sx={{ m: 1, minWidth: 120 }}>
-        {rooms ? (
-          <React.Fragment>
-            <InputLabel id={"demo-simple-select-helper-label"}>
-              Rooms
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-helper-label"
-              id="demo-simple-select-helper"
-              value={choice}
-              label={label}
-              onChange={handleChange}
+    
+  <Box sx={{ border: "2px solid gray", borderRadius: ".5rem", padding: "1rem" }}>
+      <FormControl sx={{ m: 1, minWidth: 120 }} disabled={disabled}>
+        <InputLabel id={label}>{label}</InputLabel>
+        <Select
+          labelId={label}
+          id={label}
+          value={choice}
+          label={label}
+          onChange={handleChange}
+        >
+          {items.map((item) => (
+            <MenuItem
+              key={item._id || item}
+              value={item._id || item}
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                px: 2,
+              }}
             >
-              {rooms?.map((room) => (
-                <MenuItem
-                  value={room._id}
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    px: 2,
-                    position: "relative",
-                    "&:hover .hoverImage": {
-                      opacity: 1,
-                    },
-                  }}
-                >
+              {rooms.length > 0 ? (
+                <>
                   <Box>
-                    <Typography variant="body1">{room.roomNumber}</Typography>
+                    <Typography variant="body1">{item.roomNumber}</Typography>
                     <Typography variant="body2" color="textSecondary">
-                      {room.bedType}
+                      {item.bedType}
                     </Typography>
                   </Box>
                   <Box
@@ -69,8 +68,8 @@ useImperativeHandle (ref, ()=>({getBedType: ()=> choice})
                     }}
                   >
                     <img
-                      src={room.image[0]}
-                      alt={room.roomNumber}
+                      src={item.image[0]}
+                      alt={item.roomNumber}
                       style={{
                         width: "100%",
                         height: "100%",
@@ -78,34 +77,19 @@ useImperativeHandle (ref, ()=>({getBedType: ()=> choice})
                       }}
                     />
                   </Box>
-                </MenuItem>
-              ))}
-            </Select>
-            <FormHelperText>Comfort with Design</FormHelperText>{" "}
-          </React.Fragment>
-        ) : (
-          <React.Fragment>
-            <InputLabel id="demo-simple-select-helper-label">{label}</InputLabel>
-            <Select
-              labelId="demo-simple-select-helper-label"
-              id="demo-simple-select-helper"
-              value={choice}
-              label={label}
-              onChange={handleChange}
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-            <FormHelperText>With label + helper text</FormHelperText>{" "}
-          </React.Fragment>
-        )}
+                </>
+              ) : (
+                <Typography>{item}</Typography>
+              )}
+            </MenuItem>
+          ))}
+        </Select>
+        <FormHelperText>Select {rooms.length > 0 ? "Room" : "Guest Number"}</FormHelperText>
       </FormControl>
     </Box>
-  );
-})
+);
 
-export default SelectOption
+  
+});
+
+export default SelectOption;
