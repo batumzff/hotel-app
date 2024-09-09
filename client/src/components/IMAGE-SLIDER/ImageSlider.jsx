@@ -119,7 +119,7 @@ const ImageSlider = () => {
         }}
       >
         <Typography variant="h6">
-          {rooms[currentIndex].roomNumber}
+          {rooms[currentIndex]?.roomNumber}
         </Typography>
       </Box>
 
