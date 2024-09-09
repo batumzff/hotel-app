@@ -15,6 +15,7 @@ const Rooms = lazy(() => import("../pages/ROOMS/Rooms"));
 const RoomDetail = lazy(() => import("../pages/ROOM-DETAIL/RoomDetail"));
 const Upload = lazy(() => import("../pages/UPLOAD/Upload"));
 const NotFound = lazy(() => import("../pages/404/NotFound"));
+const Profile = lazy(() => import("../pages/PROFILE/Profile"));
 
 const AppRouter = () => {
   return (
@@ -26,6 +27,12 @@ const AppRouter = () => {
           element={<PrivateRouter allowedRoles={[ "admin", "staff", "user"]} />}
         >
           <Route path="" element={<Booking />} />
+        </Route>
+        <Route
+          path="profile"
+          element={<PrivateRouter allowedRoles={[ "admin", "staff", "user"]} />}
+        >
+          <Route path="" element={<Profile />} />
         </Route>
         <Route element={<PrivateRouter allowedRoles={["admin", "staff"]} />}>
           <Route path="upload" element={<Upload />} />

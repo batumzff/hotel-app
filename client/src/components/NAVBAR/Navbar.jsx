@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -20,7 +20,7 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import logo from "../../assets/images/logo.png";
-import { ListItemButton, Stack } from "@mui/material";
+import { ListItemButton, Menu, MenuItem, Stack } from "@mui/material";
 import useAuthCalls from "../../custom-hooks/useAuthCalls";
 
 // ! styled elements for search part
@@ -71,17 +71,19 @@ const navigation = [
   { name: "About", to: "/about" },
   { name: "Contact", to: "/contact" },
   { name: "Booking", to: "/booking" },
-  { name: "Login", to: "/login" },
-  { name: "Register", to: "/register" },
+  // { name: "Login", to: "/login" },
+  // { name: "Register", to: "/register" },
 ];
 // !-------------------------------------------
 
-const navbarNavigation = navigation.filter((item, index) => index < 5 && item)
+const navbarNavigation = navigation.filter((item, index) => index < 5 && item);
 
 export default function Navbar() {
   const { user, token } = useSelector((state) => state.auth);
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [profile, setProfile] = React.useState(false);
   const { logout } = useAuthCalls();
+  const navigate = useNavigate();
 
   console.log(user);
   console.log(token);
@@ -105,21 +107,73 @@ export default function Navbar() {
       <List>
         {navigation.map((item) => (
           <React.Fragment key={item.name}>
-           { token && item.name == "Login" ? (
-            <ListItemButton onClick={handleLogout}>
-              <ListItemText primary="Log out" />
-            </ListItemButton>
-            ) : token && item.name == "Register" ? ( "" ) : (
             <ListItemButton component={Link} to={item.to}>
               <ListItemText primary={item.name} />
             </ListItemButton>
-            )}
           </React.Fragment>
         ))}
       </List>
     </Box>
   );
 
+  const handleProfile = () => {
+    setProfile((prev) => !prev);
+  };
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+
+  const isMenuOpen = Boolean(anchorEl);
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const handleProfileMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMobileMenuClose = () => {
+    setMobileMoreAnchorEl(null);
+  };
+
+  const handleMenuClose = (e) => {
+    if (e.target.textContent == "Profile") {
+      navigate("/profile");
+    } else if (e.target.textContent == "Log Out") {
+      token ? handleLogout() : navigate("/login");
+    }else if (e.target.textContent == "Login") {
+       navigate("/login");
+    }
+
+    setAnchorEl(null);
+    handleMobileMenuClose();
+  };
+
+  const handleMobileMenuOpen = (event) => {
+    setMobileMoreAnchorEl(event.currentTarget);
+  };
+  const menuId = "primary-search-account-menu";
+
+  const renderMenu = (
+    <Menu
+      anchorEl={anchorEl}
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+    >
+      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        {token ? "Log Out" : "Login"}
+      </MenuItem>
+    </Menu>
+  );
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -157,9 +211,8 @@ export default function Navbar() {
             />
           </Search>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {
-              navbarNavigation.map(item => (
-                <Link
+            {navbarNavigation.map((item) => (
+              <Link
                 to={item.to}
                 key={item.name}
                 style={{
@@ -170,11 +223,10 @@ export default function Navbar() {
               >
                 {item.name}
               </Link>
-              ))
-            }
+            ))}
           </Box>
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton
+          <Box >
+            {/* <IconButton
               size="large"
               aria-label="show 4 new mails"
               color="inherit"
@@ -191,13 +243,14 @@ export default function Navbar() {
               <Badge badgeContent={17} color="error">
                 <NotificationsIcon />
               </Badge>
-            </IconButton>
+            </IconButton> */}
             <IconButton
               size="large"
               edge="end"
               aria-label="account of current user"
-              aria-controls="primary-search-account-menu"
+              aria-controls={menuId}
               aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
               color="inherit"
             >
               <AccountCircle />
@@ -219,6 +272,7 @@ export default function Navbar() {
           }}
         >
           {drawer}
+          {renderMenu}
         </Drawer>
       </Box>
     </Box>

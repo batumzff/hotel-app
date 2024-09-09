@@ -9,12 +9,12 @@ const Login = () => {
   // const { error } = useSelector((state) => state.auth);
  
   return (
-      <Stack sx={{justifyContent:"center", alignItems: "center"}}>
+      <Stack sx={{justifyContent:"center", alignItems: "center", marginTop:"4rem"}}>
        {/* <ErrorPage/> */}
        <ErrorModal/>
-          <Stack sx={{justifyContent:"center", alignItems: "center"}}>
+          {/* <Stack sx={{justifyContent:"center", alignItems: "center"}}> */}
             <AuthForm formType={"login"} schema={"loginSchema"}/>
-          </Stack>
+          {/* </Stack> */}
         
       </Stack>
     

@@ -1,19 +1,18 @@
-"use strict"
+"use strict";
 /* -------------------------------------------------------
     NODEJS EXPRESS | CLARUSWAY FullStack Team
 ------------------------------------------------------- */
 // sync():
 
-module.exports = async function() {
+module.exports = async function () {
+  // return null;
 
-    // return null;
-
-    /* CLEAR DATABASE */
-    const { mongoose } = require('../configs/dbConnection')
-    await mongoose.connection.dropDatabase()
-    console.log('- Database and all data DELETED!')
-    /* CLEAR DATABASE */
-    const User = require("../models/user");
+  /* CLEAR DATABASE */
+  const { mongoose } = require("../configs/dbConnection");
+  await mongoose.connection.dropDatabase();
+  console.log("- Database and all data DELETED!");
+  /* CLEAR DATABASE */
+  const User = require("../models/user");
 
   await User.create([
     {
@@ -115,152 +114,180 @@ module.exports = async function() {
   ]);
   console.log("---Users added---");
 
-  const Room = require("../models/room")
+  const Room = require("../models/room");
 
   await Room.create([
     {
-      "_id": '66d4cc23d6e709facfb5b3df',
-      "roomNumber": "A1",
-      "bedType": "single",
-      "description": "A cozy single room with modern amenities.",
-      "price": 50,
-      "image": [
-        "https://cdn.pixabay.com/photo/2016/04/15/11/46/bedroom-1330846_640.jpg"
+      _id: "66d4cc23d6e709facfb5b3df",
+      roomNumber: "A1",
+      bedType: "single",
+      description: "A cozy single room with modern amenities.",
+      price: 50,
+      image: [
+        "https://cdn.pixabay.com/photo/2016/04/15/11/46/bedroom-1330846_640.jpg",
       ],
-      "ratings": [
+      ratings: [
         {
-          "value": 4,
-          "userId": "65343222b67e9681f937f515"
+          value: 4,
+          userId: "65343222b67e9681f937f515",
         },
         {
-          "value": 5,
-          "userId": "65343222b67e9681f937f516"
-        }
+          value: 5,
+          userId: "65343222b67e9681f937f516",
+        },
       ],
-      "averageRating": 4.5
+      averageRating: 4.5,
     },
     {
-      "_id": '66d4cc8dd6e709facfb5b3e3',
-      "roomNumber": "A2",
-      "bedType": "double",
-      "description": "A spacious double room with a beautiful city view.",
-      "price": 75,
-      "image": [
-        "https://cdn.pixabay.com/photo/2020/10/18/09/16/bedroom-5664221_640.jpg"
+      _id: "66d4cc8dd6e709facfb5b3e3",
+      roomNumber: "A2",
+      bedType: "double",
+      description: "A spacious double room with a beautiful city view.",
+      price: 75,
+      image: [
+        "https://cdn.pixabay.com/photo/2020/10/18/09/16/bedroom-5664221_640.jpg",
       ],
-      "ratings": [
+      ratings: [
         {
-          "value": 3,
-          "userId": "65343222b67e9681f937f517"
-        }
+          value: 3,
+          userId: "65343222b67e9681f937f517",
+        },
       ],
-      "averageRating": 3
+      averageRating: 3,
     },
     {
-      "_id": '66d4cc94d6e709facfb5b3e7',
-      "roomNumber": "A3",
-      "bedType": "family",
-      "description": "A family room perfect for a comfortable stay.",
-      "price": 100,
-      "image": [
-        "https://cdn.pixabay.com/photo/2017/01/14/12/48/hotel-1979406_640.jpg"
+      _id: "66d4cc94d6e709facfb5b3e7",
+      roomNumber: "A3",
+      bedType: "family",
+      description: "A family room perfect for a comfortable stay.",
+      price: 100,
+      image: [
+        "https://cdn.pixabay.com/photo/2017/01/14/12/48/hotel-1979406_640.jpg",
       ],
-      "ratings": [
+      ratings: [
         {
-          "value": 5,
-          "userId": "65343222b67e9681f937f518"
+          value: 5,
+          userId: "65343222b67e9681f937f518",
         },
         {
-          "value": 4,
-          "userId": "65343222b67e9681f937f517"
+          value: 4,
+          userId: "65343222b67e9681f937f517",
         },
         {
-          "value": 5,
-          "userId": "65343222b67e9681f937f516"
-        }
+          value: 5,
+          userId: "65343222b67e9681f937f516",
+        },
       ],
-      "averageRating": 4.67
+      averageRating: 4.67,
     },
     {
-      "_id": '66d4ccaed6e709facfb5b3eb',
-      "roomNumber": "A4",
-      "bedType": "king",
-      "description": "A luxurious king-sized room with premium facilities.",
-      "price": 150,
-      "image": [
-        "https://cdn.pixabay.com/photo/2015/01/16/08/54/motel-601218_640.jpg"
+      _id: "66d4ccaed6e709facfb5b3eb",
+      roomNumber: "A4",
+      bedType: "king",
+      description: "A luxurious king-sized room with premium facilities.",
+      price: 150,
+      image: [
+        "https://cdn.pixabay.com/photo/2015/01/16/08/54/motel-601218_640.jpg",
       ],
-      "ratings": [
+      ratings: [
         {
-          "value": 5,
-          "userId": "65343222b67e9681f937f515"
-        }
+          value: 5,
+          userId: "65343222b67e9681f937f515",
+        },
       ],
-      "averageRating": 5
+      averageRating: 5,
     },
     {
-      "_id": '66d4ccb9d6e709facfb5b3ef',
-      "roomNumber": "A5",
-      "bedType": "single",
-      "description": "An elegant single room with a cozy atmosphere.",
-      "price": 55,
-      "image": [
-        "https://cdn.pixabay.com/photo/2017/04/28/22/16/room-2269594_640.jpg"
+      _id: "66d4ccb9d6e709facfb5b3ef",
+      roomNumber: "A5",
+      bedType: "single",
+      description: "An elegant single room with a cozy atmosphere.",
+      price: 55,
+      image: [
+        "https://cdn.pixabay.com/photo/2017/04/28/22/16/room-2269594_640.jpg",
       ],
-      "ratings": [
+      ratings: [
         {
-          "value": 4,
-          "userId": "65343222b67e9681f937f514"
+          value: 4,
+          userId: "65343222b67e9681f937f514",
         },
         {
-          "value": 4,
-          "userId": "65343222b67e9681f937f513"
-        }
+          value: 4,
+          userId: "65343222b67e9681f937f513",
+        },
       ],
-      "averageRating": 4
+      averageRating: 4,
     },
     {
-      "_id": '66d4cce9d6e709facfb5b3f3',
-      "roomNumber": "A6",
-      "bedType": "double",
-      "description": "A comfortable double room with modern facilities.",
-      "price": 80,
-      "image": [
-        "https://cdn.pixabay.com/photo/2021/12/18/06/13/hotel-6878054_640.jpg"
+      _id: "66d4cce9d6e709facfb5b3f3",
+      roomNumber: "A6",
+      bedType: "double",
+      description: "A comfortable double room with modern facilities.",
+      price: 80,
+      image: [
+        "https://cdn.pixabay.com/photo/2021/12/18/06/13/hotel-6878054_640.jpg",
       ],
-      "ratings": [
+      ratings: [
         {
-          "value": 3,
-          "userId": "65343222b67e9681f937f513"
+          value: 3,
+          userId: "65343222b67e9681f937f513",
         },
         {
-          "value": 4,
-          "userId": "65343222b67e9681f937f512"
-        }
+          value: 4,
+          userId: "65343222b67e9681f937f512",
+        },
       ],
-      "averageRating": 3.5
+      averageRating: 3.5,
     },
     {
-      "_id": '66d4cceed6e709facfb5b3f7',
-      "roomNumber": "A7",
-      "bedType": "family",
-      "description": "A spacious family room with a beautiful garden view.",
-      "price": 110,
-      "image": [
-        "https://cdn.pixabay.com/photo/2016/06/10/01/05/hotel-room-1447201_640.jpg"
+      _id: "66d4cceed6e709facfb5b3f7",
+      roomNumber: "A7",
+      bedType: "family",
+      description: "A spacious family room with a beautiful garden view.",
+      price: 110,
+      image: [
+        "https://cdn.pixabay.com/photo/2016/06/10/01/05/hotel-room-1447201_640.jpg",
       ],
-      "ratings": [
+      ratings: [
         {
-          "value": 4,
-          "userId": "65343222b67e9681f937f514"
+          value: 4,
+          userId: "65343222b67e9681f937f514",
         },
         {
-          "value": 5,
-          "userId": "65343222b67e9681f937f515"
-        }
+          value: 5,
+          userId: "65343222b67e9681f937f515",
+        },
       ],
-      "averageRating": 4.5
-    }
-  ])
+      averageRating: 4.5,
+    },
+  ]);
   console.log("---Rooms added---");
-}
+  const Message = require("../models/message")
+  await Message.create([
+    {
+      _id: "66df6735f68fa0d077febe66",
+      content:
+        "The room was spotless and had a fantastic view of the city skyline. Loved the modern decor and comfortable bed. Will definitely stay again!",
+        userId:"65343222b67e9681f937f518"
+    },
+    {
+      _id: "66df6735f68fa0d077febe67",
+      content:
+        "A bit smaller than expected, but the room was cozy and clean. The bathroom amenities were top-notch, and the staff was super friendly.",
+        userId:"65343222b67e9681f937f517"
+    },
+    {
+      _id: "66df6735f68fa0d077febe68",
+      content:
+        "I had a pleasant stay, though the room could use better soundproofing. Overall, the location was excellent and the service was quick.",
+        userId:"65343222b67e9681f937f516"
+    },
+    {
+      _id: "66df6735f68fa0d077febe69",
+      content:
+        "The room was spacious and well-equipped, but the air conditioning was too loud at night. Otherwise, everything was perfect.",
+        userId:"65343222b67e9681f937f515"
+    },
+  ]);
+  console.log("---Messages added---");
+};
