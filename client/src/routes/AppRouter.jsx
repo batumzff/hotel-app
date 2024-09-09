@@ -4,6 +4,7 @@ import SuspenseWrapper from "../components/SUSPENSE-WRAPPER/SuspenseWrapper"
 import PrivateRouter from "./PrivateRouter";
 import Home from "../pages/HOME/Home";
 import Unauthorized from "../pages/UNAUTHORIZED/Unauthorized";
+import Messages from "../pages/MESSAGES/Messages";
 
 const Login = lazy(() => import("../pages/LOGIN/Login"));
 const Register = lazy(() => import("../pages/REGISTER/Register"));
@@ -33,6 +34,12 @@ const AppRouter = () => {
           element={<PrivateRouter allowedRoles={[ "admin", "staff", "user"]} />}
         >
           <Route path="" element={<Profile />} />
+        </Route>
+        <Route
+          path="messages"
+          element={<PrivateRouter allowedRoles={[ "admin", "staff"]} />}
+        >
+          <Route path="" element={<Messages />} />
         </Route>
         <Route element={<PrivateRouter allowedRoles={["admin", "staff"]} />}>
           <Route path="upload" element={<Upload />} />

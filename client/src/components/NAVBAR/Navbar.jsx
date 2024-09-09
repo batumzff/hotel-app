@@ -22,6 +22,7 @@ import ListItemText from "@mui/material/ListItemText";
 import logo from "../../assets/images/logo.png";
 import { ListItemButton, Menu, MenuItem, Stack } from "@mui/material";
 import useAuthCalls from "../../custom-hooks/useAuthCalls";
+import Review from "../REVIEW/Review";
 
 // ! styled elements for search part
 const Search = styled("div")(({ theme }) => ({
@@ -85,8 +86,8 @@ export default function Navbar() {
   const { logout } = useAuthCalls();
   const navigate = useNavigate();
 
-  console.log(user);
-  console.log(token);
+  // console.log(user);
+  // console.log(token);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -96,7 +97,7 @@ export default function Navbar() {
     logout();
   };
 
-  console.log(navigation);
+  // console.log(navigation);
 
   // ! Drawer - Sidebar
   const drawer = (
@@ -139,8 +140,8 @@ export default function Navbar() {
       navigate("/profile");
     } else if (e.target.textContent == "Log Out") {
       token ? handleLogout() : navigate("/login");
-    }else if (e.target.textContent == "Login") {
-       navigate("/login");
+    } else if (e.target.textContent == "Login") {
+      navigate("/login");
     }
 
     setAnchorEl(null);
@@ -174,6 +175,11 @@ export default function Navbar() {
       </MenuItem>
     </Menu>
   );
+
+  const handleReview = () => {
+    navigate("/messages");
+    // console.log("clicked", e.target)
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -225,17 +231,26 @@ export default function Navbar() {
               </Link>
             ))}
           </Box>
-          <Box >
-            {/* <IconButton
+          <Box sx={{display:"flex"}}>
+            {/* {(user?.isAdmin || user?.isStaff) &&
+
+            (<IconButton
               size="large"
               aria-label="show 4 new mails"
               color="inherit"
             >
-              <Badge badgeContent={4} color="error">
+              <Badge badgeContent={5} color="error">
                 <MailIcon />
               </Badge>
-            </IconButton>
-            <IconButton
+            </IconButton>)
+            } */}
+            
+
+            {(user?.isAdmin || user?.isStaff) && (
+             <Box onClick={handleReview}> <Review  /></Box>
+            )}
+            
+            {/* <IconButton
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
