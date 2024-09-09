@@ -11,7 +11,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import MyButton from "../FORM-INPUTS/MyButton";
-import  Typography from "@mui/material/Typography";
+import Typography from "@mui/material/Typography";
 
 const schemaMap = {
   loginSchema,
@@ -52,35 +52,64 @@ const AuthForm = ({ formType, schema }) => {
   };
 
   return (
-    <Box sx={{padding:"1rem", display:"flex", justifyContent: "center", alignItems: "center"}}>
+    <Box
+      sx={{
+        padding: "1rem",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <Stack
-      sx={{justifyContent:"center", alignItems:"center",border:"2px solid gray", width:"25rem", borderRadius:".4rem", boxShadow:"0 4px 10px rgba(0, 0, 0, 0.3)"}}
+        sx={{
+          justifyContent: "center",
+          alignItems: "center",
+          border: "2px solid gray",
+          width: "25rem",
+          borderRadius: ".4rem",
+          boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)",
+        }}
       >
         <Typography>{formType === "login" ? "" : "Register Form"}</Typography>
         <Box
           component="form"
-          sx={{ '& .MuiTextField-root': { m: 1, width: '25ch' },  display:"flex", flexDirection:"column",  justifyContent:"center", alignItems:"center"}}
+          sx={{
+            "& .MuiTextField-root": { m: 1, width: "25ch" },
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
           noValidate
           autoComplete="off"
-         onSubmit={handleSubmit(onSubmit)}>
+          onSubmit={handleSubmit(onSubmit)}
+        >
           {formType == "register"
-            ? formRegisterInputs.map((item) => 
-                (
-                  <Stack key={item.name} sx={{justifyContent:"center", alignItems:"center"}}>
-                    <TextField
-                      data-test={item["data-test"]}
-                      label={item.label}
-                      type={item.type}
-                      id={item.id}
-                      name={item.name}
-                      {...register(item.name)}
-                    />
-                    <Box>{errors[item.name]?.message}</Box>
-                  </Stack>
-                )
-              )
+            ? formRegisterInputs.map((item) => (
+                <Stack
+                  key={item.name}
+                  sx={{ justifyContent: "center", alignItems: "center" }}
+                >
+                  <TextField
+                    data-test={item["data-test"]}
+                    label={item.label}
+                    type={item.type}
+                    id={item.id}
+                    name={item.name}
+                    {...register(item.name)}
+                  />
+                  <Box>{errors[item.name]?.message}</Box>
+                </Stack>
+              ))
             : formLoginInputs.map((item) => (
-                <Stack key={item.name} sx={{justifyContent:"center", alignItems:"center", gap:".5rem"}}>
+                <Stack
+                  key={item.name}
+                  sx={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                    gap: ".5rem",
+                  }}
+                >
                   <TextField
                     data-test={item["data-test"]}
                     label={item.label}
@@ -104,22 +133,21 @@ const AuthForm = ({ formType, schema }) => {
               ? "Register"
               : "Login"}
           </MyButton>
-          
-            <Stack>
-              <Box>
-                {formType === "login"
-                  ? "Don't have an account?"
-                  : "Already have an account"}
-              </Box>
-              <MyButton
-                // style={{ width: "5rem" }}
-                onClick={handleNavigate}
-                data-test="loginRegisterButton"
-              >
-                {formType === "login" ? "Register Page" : "Login Page"}
-              </MyButton>
-            </Stack>
-          
+
+          <Stack sx={{flexDirection:"column",justifyContent:"center",alignItems:"center",marginTop:"1rem"}}>
+            <Box>
+              {formType === "login"
+                ? "Don't have an account?"
+                : "Already have an account"}
+            </Box>
+            <MyButton
+              style={{ margin: ".5rem" }}
+              onClick={handleNavigate}
+              data-test="loginRegisterButton"
+            >
+              {formType === "login" ? "Register Page" : "Login Page"}
+            </MyButton>
+          </Stack>
         </Box>
         <DevTool control={control} />
       </Stack>
