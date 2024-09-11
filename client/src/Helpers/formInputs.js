@@ -43,11 +43,11 @@ export const formRegisterInputs = [
     type: "text", 
     "data-test": "registerImage" 
   },
-  { 
-    label: "Biography", 
-    name: "biography", 
-    type:"text" 
-  }
+  // { 
+  //   label: "Biography", 
+  //   name: "biography", 
+  //   type:"text" 
+  // }
 ];
 
 export const formLoginInputs = [

@@ -12,6 +12,9 @@ import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import MyButton from "../FORM-INPUTS/MyButton";
 import Typography from "@mui/material/Typography";
+import IconButton from '@mui/material/IconButton';
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 const schemaMap = {
   loginSchema,
@@ -20,6 +23,10 @@ const schemaMap = {
 
 const AuthForm = ({ formType, schema }) => {
   const { registerUser, login } = useAuthCalls();
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((prev) => !prev);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -52,23 +59,15 @@ const AuthForm = ({ formType, schema }) => {
   };
 
   return (
-    // <Box
-    //   sx={{
-    //     padding: "1rem",
-    //     display: "flex",
-    //     justifyContent: "center",
-    //     alignItems: "center",
-
-    //   }}
-    // >
     <Stack
-      className="auth-form"
       sx={{
+        flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
         border: "2px solid gray",
         width: "50%",
         padding: "1rem",
+        margin: "1rem auto",
         borderRadius: ".4rem",
         boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)",
 
@@ -98,14 +97,36 @@ const AuthForm = ({ formType, schema }) => {
                 key={item.name}
                 sx={{ justifyContent: "center", alignItems: "center" }}
               >
-                <TextField
-                  data-test={item["data-test"]}
-                  label={item.label}
-                  type={item.type}
-                  id={item.id}
-                  name={item.name}
-                  {...register(item.name)}
-                />
+                {item.name == "password" ? (
+                  <Box sx={{position:"relative"}}>
+                    <TextField
+                      data-test={item["data-test"]}
+                      label={item.label}
+                      type={showPassword ? "text" : "password"}
+                      id={item.id}
+                      name={item.name}
+                      {...register(item.name)}
+
+                    />
+                    <IconButton
+                  aria-label="toggle password visibility"
+                  sx={{position:"absolute", right:"1rem", top:"1rem"}}
+                  onClick={handleClickShowPassword}
+                  
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+                  </Box>
+                ) : (
+                  <TextField
+                    data-test={item["data-test"]}
+                    label={item.label}
+                    type={item.type}
+                    id={item.id}
+                    name={item.name}
+                    {...register(item.name)}
+                  />
+                )}
                 <Box>{errors[item.name]?.message}</Box>
               </Stack>
             ))
@@ -118,15 +139,36 @@ const AuthForm = ({ formType, schema }) => {
                   gap: ".5rem",
                 }}
               >
-                <TextField
-                  data-test={item["data-test"]}
-                  label={item.label}
-                  type={item.type}
-                  id={item.name}
-                  name={item.name}
-                  placeholder=" "
-                  {...register(item.name)}
-                />
+               {item.name == "password" ? (
+                  <Box sx={{position:"relative"}}>
+                    <TextField
+                      data-test={item["data-test"]}
+                      label={item.label}
+                      type={showPassword ? "text" : "password"}
+                      id={item.id}
+                      name={item.name}
+                      {...register(item.name)}
+
+                    />
+                    <IconButton
+                  aria-label="toggle password visibility"
+                  sx={{position:"absolute", right:"1rem", top:"1rem"}}
+                  onClick={handleClickShowPassword}
+                  
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+                  </Box>
+                ) : (
+                  <TextField
+                    data-test={item["data-test"]}
+                    label={item.label}
+                    type={item.type}
+                    id={item.id}
+                    name={item.name}
+                    {...register(item.name)}
+                  />
+                )}
                 <Typography>{errors[item.name]?.message}</Typography>
               </Stack>
             ))}
@@ -144,10 +186,9 @@ const AuthForm = ({ formType, schema }) => {
 
         <Stack
           sx={{
-            flexDirection: "column",
+            flexDirection: "row",
             justifyContent: "center",
             alignItems: "center",
-            marginTop: "1rem",
           }}
         >
           <Box>
@@ -166,7 +207,6 @@ const AuthForm = ({ formType, schema }) => {
       </Box>
       <DevTool control={control} />
     </Stack>
-    // </Box>
   );
 };
 
