@@ -62,6 +62,13 @@ app.all("/", (req, res) => {
     message: "Welcome to HOTEL API",
   });
 });
+app.all("*", (req, res) => {
+
+  res.status(404).send({
+    error: true,
+    message: "This route is not valid",
+  });
+});
 
 /* ------------------------------------------------------- */
 

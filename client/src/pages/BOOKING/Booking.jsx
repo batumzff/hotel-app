@@ -38,9 +38,9 @@ const Booking = () => {
           return room.bedType === "single";
         case selectedGuests === 2:
           return room.bedType === "double";
-        case selectedGuests > 2 && selectedGuests <= 4:
+        case selectedGuests >= 3 && selectedGuests < 6:
           return room.bedType === "family";
-        case selectedGuests >= 5:
+        case selectedGuests >= 6:
           return room.bedType === "king";
         default:
           return false;
@@ -65,7 +65,8 @@ const Booking = () => {
       arrival_date: selectedDateRange.arrival_date,
       departure_date: selectedDateRange.departure_date,
       username: user?.username,
-      guest_number: selectedGuestNumber,
+      // guest_number: selectedGuestNumber,
+      bedType: ""
     };
     console.log("postData: ", postData);
     reservation(postData);

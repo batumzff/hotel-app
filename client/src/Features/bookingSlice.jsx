@@ -19,9 +19,7 @@ export const bookingSlice = createSlice({
             getReservation: ( state, { payload }) => {
                 state.loading = false
                 state.error = false
-                state.booking = {
-                    ...state.booking, payload
-                }
+                state.booking = payload?.data
             },
 
             fetchFail:(state, { payload }) => {
