@@ -19,6 +19,7 @@ const useMessages = () => {
       console.log("get Messages : ", data);
 
       dispatch(getMessages(data));
+      await readUnreadInfo()
     } catch (error) {
       dispatch(fetchFail());
       console.error(error);
