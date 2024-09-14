@@ -2,6 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   message:[],
+  read: null,
+  unread: null,
   loading: false,
   error: false
 }
@@ -16,9 +18,17 @@ const messageSlice = createSlice({
     },
 
    getMessages: (state, { payload }) => {
-        state.message = payload?.data?.data
+        state.message = payload?.data
         state.loading = false
         state.error = false
+        // console.log(payload);
+    },
+
+   getMessageStatus: (state, { payload }) => {
+        state[payload.url] = payload?.data?.data
+        state.loading = false
+        state.error = false
+        console.log(payload);
     },
 
     fetchFail: (state) => {
@@ -28,6 +38,6 @@ const messageSlice = createSlice({
   }
 });
 
-export const { fetchStart, fetchFail, getMessages } = messageSlice.actions
+export const { fetchStart, fetchFail, getMessages, getMessageStatus } = messageSlice.actions
 
 export default messageSlice.reducer

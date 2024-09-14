@@ -6,19 +6,18 @@ import useMessages from "../../custom-hooks/useMessages";
 import { useSelector } from "react-redux";
 
 const Review = () => {
-    const {getMessageInfo} = useMessages()
-    const {message} = useSelector(state => state.message)
-    console.log(message)
+  const { readUnreadInfo } = useMessages();
+  const { unread } = useSelector((state) => state.message);
 
-    useEffect(() => {
-      getMessageInfo()
-      
-    }, [])
-    
+  console.log(unread);
+
+  useEffect(() => {
+    readUnreadInfo();
+  }, []);
 
   return (
     <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-      <Badge badgeContent={5} color="error">
+      <Badge badgeContent={unread || 0} color={unread ? "error" : ""}>
         <MailIcon />
       </Badge>
     </IconButton>
