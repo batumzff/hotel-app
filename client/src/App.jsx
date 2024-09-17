@@ -1,30 +1,35 @@
 import AppRouter from "./routes/AppRouter";
 import { BrowserRouter as Router } from "react-router-dom";
-import Navbar from "./components/Navbar/Navbar";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import Navbar from "./components/NAVBAR/Navbar";
 import Footer from "./components/FOOTER/Footer";
-import { Box } from "@mui/material";
-// import "./App.css";
+import Box from "@mui/material/Box";
+
+const stripePromise = loadStripe(import.meta.env.VITE_SECRET_PAYMENT_KEY);
 
 function App() {
   return (
     <Router>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          minHeight: '100vh',
-        }}
-      >
+      <Elements stripe={stripePromise}>
         <Box
           sx={{
-            flexGrow: 1, 
+            display: "flex",
+            flexDirection: "column",
+            minHeight: "100vh",
           }}
         >
-          <Navbar />
-          <AppRouter />
+          <Box
+            sx={{
+              flexGrow: 1,
+            }}
+          >
+            <Navbar />
+            <AppRouter />
+          </Box>
+          <Footer />
         </Box>
-        <Footer />
-      </Box>
+      </Elements>
     </Router>
   );
 }

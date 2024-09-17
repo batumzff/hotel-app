@@ -4,19 +4,20 @@ import SuspenseWrapper from "../components/SUSPENSE-WRAPPER/SuspenseWrapper"
 import PrivateRouter from "./PrivateRouter";
 import Home from "../pages/HOME/Home";
 import Unauthorized from "../pages/UNAUTHORIZED/Unauthorized";
-import Messages from "../pages/MESSAGES/Messages";
 
 const Login = lazy(() => import("../pages/LOGIN/Login"));
 const Register = lazy(() => import("../pages/REGISTER/Register"));
 const Booking = lazy(() => import("../pages/BOOKING/Booking"));
+const Payment = lazy(() => import("../pages/PAYMENT/Payment"));
 const About = lazy(() => import("../pages/ABOUT/About"));
 const AboutDetails = lazy(() => import("../pages/ABOUT-DETAILS/AboutDetails"));
 const Contact = lazy(() => import("../pages/CONTACT/Contact"));
 const Rooms = lazy(() => import("../pages/ROOMS/Rooms"));
 const RoomDetail = lazy(() => import("../pages/ROOM-DETAIL/RoomDetail"));
 const Upload = lazy(() => import("../pages/UPLOAD/Upload"));
-const NotFound = lazy(() => import("../pages/404/NotFound"));
 const Profile = lazy(() => import("../pages/PROFILE/Profile"));
+const Messages = lazy(() => import("../pages/MESSAGES/Messages"));
+const NotFound = lazy(() => import("../pages/404/NotFound"));
 
 const AppRouter = () => {
   return (
@@ -27,7 +28,8 @@ const AppRouter = () => {
           path="booking"
           element={<PrivateRouter allowedRoles={[ "admin", "staff", "user"]} />}
         >
-          <Route path="" element={<Booking />} />
+          <Route index element={<Booking />} />
+          <Route path="payment" element={<Payment />} />
         </Route>
         <Route
           path="profile"

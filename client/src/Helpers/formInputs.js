@@ -44,6 +44,34 @@ export const formRegisterInputs = [
     "data-test": "registerImage" 
   },
   // { 
+  //   label: "Card Expire", 
+  //   name: "cardExpire", 
+  //   id:"outlined-cardExpire-input",
+  //   type: "text", 
+  //   "data-test": "registerCardExpire" 
+  // },
+  // { 
+  //   label: "Card Number", 
+  //   name: "cardNumber", 
+  //   id:"outlined-cardNumber-input",
+  //   type: "text", 
+  //   "data-test": "registerCardNumber" 
+  // },
+  // { 
+  //   label: "Currency", 
+  //   name: "currency", 
+  //   id:"outlined-currency-input",
+  //   type: "text", 
+  //   "data-test": "registerCurrency" 
+  // },
+  // { 
+  //   label: "IBAN", 
+  //   name: "IBAN", 
+  //   id:"outlined-IBAN-input",
+  //   type: "text", 
+  //   "data-test": "registerCurrency" 
+  // },
+  // { 
   //   label: "Biography", 
   //   name: "biography", 
   //   type:"text" 
