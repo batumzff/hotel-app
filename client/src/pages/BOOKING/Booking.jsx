@@ -97,7 +97,17 @@ const Booking = () => {
         <Stack
           sx={{ flexDirection: "column", gap: "1rem", margin: ".5rem auto" }}
         >
-          <Box sx={{ display: "flex", gap: ".4rem" }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: {
+                xs: "column", 
+                sm: "row", 
+                md: "row", 
+              },
+              gap: ".4rem",
+            }}
+          >
             {/* <SelectOption label="Guests" guests={guestNumber} ref={guestNumberRef} />
           <SelectOption label="Rooms" rooms={rooms} ref={guestRef} /> */}
             <SelectOption
@@ -113,10 +123,15 @@ const Booking = () => {
             />
           </Box>
 
-          <MyButton onClick={handleSubmit} 
-          disabled={filteredRooms.length === 0}
-          >Make a reservation</MyButton>
-          <MyButton disabled={filteredRooms.length === 0}>New reservation</MyButton>
+          <MyButton
+            onClick={handleSubmit}
+            disabled={filteredRooms.length === 0}
+          >
+            Make a reservation
+          </MyButton>
+          <MyButton disabled={filteredRooms.length === 0}>
+            New reservation
+          </MyButton>
         </Stack>
       </Stack>
       {data &&
