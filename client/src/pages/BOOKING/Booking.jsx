@@ -80,6 +80,7 @@ const Booking = () => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        
       }}
     >
       {/* <ErrorPage/> */}
@@ -91,6 +92,7 @@ const Booking = () => {
           justifyContent: "center",
           alignItems: "center",
           gap: "1rem",
+          marginTop: "1rem",
         }}
       >
         <Calendar ref={calendarRef} />
@@ -101,9 +103,9 @@ const Booking = () => {
             sx={{
               display: "flex",
               flexDirection: {
-                xs: "column", 
-                sm: "row", 
-                md: "row", 
+                xs: "column",
+                sm: "row",
+                md: "row",
               },
               gap: ".4rem",
             }}
@@ -122,16 +124,25 @@ const Booking = () => {
               disabled={filteredRooms.length === 0} // Disable if no rooms match
             />
           </Box>
-
-          <MyButton
-            onClick={handleSubmit}
-            disabled={filteredRooms.length === 0}
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              gap:"1rem"
+            }}
           >
-            Make a reservation
-          </MyButton>
-          <MyButton disabled={filteredRooms.length === 0}>
-            New reservation
-          </MyButton>
+            <MyButton
+              onClick={handleSubmit}
+              disabled={filteredRooms.length === 0}
+            >
+              Make a reservation
+            </MyButton>
+            {/* <MyButton disabled={filteredRooms.length === 0}>
+              New reservation
+            </MyButton> */}
+          </Box>
         </Stack>
       </Stack>
       {data &&

@@ -5,17 +5,18 @@ import Typography from "@mui/material/Typography";
 import { useSelector } from "react-redux";
 
 export default function RatingStatus({ roomId, readOnlyStatus }) {
-  const [value, setValue] = React.useState(2);
+  const [value, setValue] = React.useState(0);
   const { roomDetail } = useSelector((state) => state.room);
 
   console.log("rating", roomDetail);
+  console.log(value)
 
   return (
     <Box sx={{ "& > legend": { mt: 2 } }}>
       {roomId ? (
         <Rating
           name="simple-controlled"
-          value={roomDetail?.averageRating}
+          value={value}
           onChange={(event, newValue) => {
             setValue(newValue);
           }}

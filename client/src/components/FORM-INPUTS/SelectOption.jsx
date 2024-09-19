@@ -22,6 +22,7 @@ const SelectOption = forwardRef(({ id, label, value, rooms = [], guests=[], onCh
   // console.log("choice in select option", choice);
   // console.log("guests in select option", guests);
   const items = rooms.length > 0 ? rooms : guests;
+  console.log(items)
   return (
     
   <Box sx={{ border: "2px solid gray", borderRadius: ".5rem", padding: "1rem" }}>
@@ -62,9 +63,12 @@ const SelectOption = forwardRef(({ id, label, value, rooms = [], guests=[], onCh
                       transform: "translateY(-50%)",
                       width: 50,
                       height: 50,
-                      opacity: 0,
+                      opacity: 1,
                       transition: "opacity 0.3s ease",
                       borderRadius: 4,
+                      "&:hover": {
+                        opacity:1,
+                      }
                     }}
                   >
                     <img

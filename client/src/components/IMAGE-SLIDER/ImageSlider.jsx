@@ -84,6 +84,7 @@ const ImageSlider = () => {
         margin: "0 auto",
         position: "relative",
         overflow: "hidden",
+        borderRadius:"25px",
       }}
       {...handlers}
       onMouseEnter={() => setIsHovered(true)}
