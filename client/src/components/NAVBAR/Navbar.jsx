@@ -72,6 +72,7 @@ const navigation = [
   { name: "About", to: "/about" },
   { name: "Contact", to: "/contact" },
   { name: "Booking", to: "/booking" },
+  { name: "Profile", to: "/profile" },
   // { name: "Login", to: "/login" },
   // { name: "Register", to: "/register" },
 ];
