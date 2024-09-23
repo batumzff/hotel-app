@@ -39,7 +39,7 @@ export default function ErrorModal() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const { errorMessage, error: authError } = useSelector((state) => state.auth);
-  const { bookingErrorMessage, error: bookingError } = useSelector(
+  const { errorBookingMessage, error: bookingError } = useSelector(
     (state) => state.booking
   );
   const [message, setMessage] = useState("");
@@ -50,7 +50,7 @@ export default function ErrorModal() {
   console.log(location.pathname);
 
   const path = location?.pathname.split("/")[1];
-
+  console.log("errorBookingMessage: ", errorBookingMessage);
   useEffect(() => {
     let timer;
 
@@ -79,16 +79,22 @@ export default function ErrorModal() {
         dispatch(clearError());
         setOpen(false);
       }, 3000);
-      setOpen(true)
+      setOpen(true);
     } else if (bookingError) {
-      if (bookingErrorMessage?.includes("valid dates")) {
+      if (errorBookingMessage?.includes("valid dates")) {
         setMessage("Please check your reservation dates.");
       } else if (
-        bookingErrorMessage?.includes("not empty at the period of time")
+        errorBookingMessage?.includes("not empty at the period of time")
       ) {
         setMessage(
           "The room is reserved during the selected period. Please change the date."
         );
+      } else if (errorBookingMessage?.includes("have already reserved")) {
+        setMessage(
+          "You have already reserved this room for the requested period"
+        );
+      } else if (errorBookingMessage?.includes("is already reserved")) {
+        setMessage("This room is already reserved for the requested period");
       } else {
         setMessage(
           "An error occurred with the booking. Please wait for 3 seconds."
@@ -97,15 +103,15 @@ export default function ErrorModal() {
 
       timer = setTimeout(() => {
         dispatch(clearBookingError());
-        setOpen(false)
+        setOpen(false);
       }, 3000);
-      setOpen(true)
+      setOpen(true);
     }
 
     return () => {
       if (timer) clearTimeout(timer);
     };
-  }, [authError, bookingError, errorMessage, bookingErrorMessage]);
+  }, [authError, bookingError, errorMessage, errorBookingMessage]);
   return (
     <section
       style={{
@@ -123,13 +129,24 @@ export default function ErrorModal() {
           onClose={handleClose}
           // aria-labelledby="keep-mounted-modal-title"
           // aria-describedby="keep-mounted-modal-description"
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
           <Box>
-            <Stack>
-              <Typography variant="h4" color="error">
+            <Stack
+              sx={{
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Typography variant="h4" color="error" sx={{textAlign:"center", fontWeight:"800"}}>
                 {message}
               </Typography>
-              <Typography variant="h6">
+              <Typography variant="h6" color="error" sx={{fontWeight:"900"}}>
                 You will be redirected to the {path} page automatically in 3
                 seconds.
               </Typography>

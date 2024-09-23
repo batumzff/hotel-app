@@ -20,6 +20,7 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import logo from "../../assets/images/logo.png";
+import logo1 from "../../assets/images/logo-1.png";
 import { ListItemButton, Menu, MenuItem, Stack } from "@mui/material";
 import useAuthCalls from "../../custom-hooks/useAuthCalls";
 import Review from "../REVIEW/Review";
@@ -71,8 +72,8 @@ const navigation = [
   { name: "Rooms", to: "/rooms" },
   { name: "About", to: "/about" },
   { name: "Contact", to: "/contact" },
-  { name: "Booking", to: "/booking" },
   { name: "Profile", to: "/profile" },
+  // { name: "Booking", to: "/booking" },
   // { name: "Login", to: "/login" },
   // { name: "Register", to: "/register" },
 ];
@@ -83,7 +84,6 @@ const navbarNavigation = navigation.filter((item, index) => index < 5 && item);
 export default function Navbar() {
   const { user, token } = useSelector((state) => state.auth);
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [profile, setProfile] = React.useState(false);
   const { logout } = useAuthCalls();
   const navigate = useNavigate();
 
@@ -104,7 +104,7 @@ export default function Navbar() {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        <img src={logo} alt="logo" width="150px" style={{ padding: "10px" }} />
+        <img src={logo1} alt="logo" width="150px" style={{ padding: "10px" }} />
       </Typography>
       <List>
         {navigation.map((item) => (
@@ -118,9 +118,7 @@ export default function Navbar() {
     </Box>
   );
 
-  const handleProfile = () => {
-    setProfile((prev) => !prev);
-  };
+ 
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -139,7 +137,7 @@ export default function Navbar() {
   const handleMenuClose = (e) => {
     if (e.target.textContent == "Profile") {
       navigate("/profile");
-    } else if (e.target.textContent == "Log Out") {
+    } else if (e.target.textContent == "Log out") {
       token ? handleLogout() : navigate("/login");
     } else if (e.target.textContent == "Login") {
       navigate("/login");
@@ -172,14 +170,13 @@ export default function Navbar() {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>
-        {token ? "Log Out" : "Login"}
+        {token ? "Log out" : "Login"}
       </MenuItem>
     </Menu>
   );
 
   const handleReview = () => {
     navigate("/messages");
-    // console.log("clicked", e.target)
   };
 
   return (
@@ -218,7 +215,7 @@ export default function Navbar() {
             />
           </Search>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {navbarNavigation.map((item) => (
+            {navbarNavigation.map((item) => ( item.name !== "Profile" &&
               <Link
                 to={item.to}
                 key={item.name}
@@ -233,20 +230,6 @@ export default function Navbar() {
             ))}
           </Box>
           <Box sx={{display:"flex"}}>
-            {/* {(user?.isAdmin || user?.isStaff) &&
-
-            (<IconButton
-              size="large"
-              aria-label="show 4 new mails"
-              color="inherit"
-            >
-              <Badge badgeContent={5} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton>)
-            } */}
-            
-
             {(user?.isAdmin || user?.isStaff) && (
              <Box onClick={handleReview}> <Review  /></Box>
             )}
@@ -269,7 +252,7 @@ export default function Navbar() {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+             {user?.image ? <img src={user?.image} alt={user?.username} width={50} style={{borderRadius:"50%"}} /> :<AccountCircle />}
             </IconButton>
           </Box>
         </Toolbar>

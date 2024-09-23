@@ -8,49 +8,54 @@ import SelectOption from "../../components/FORM-INPUTS/SelectOption";
 import useRooms from "../../custom-hooks/useRooms";
 import ErrorPage from "../../components/ERROR-PAGE/ErrorPage";
 import ErrorModal from "../../components/ERROR-MODAL/ErrorModal";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-const guestNumber = [];
-for (let i in [...Array(10)]) {
-  i !== "0" && guestNumber.push(Number(i));
-}
+// const guestNumber = [];
+// for (let i in [...Array(10)]) {
+//   i !== "0" && guestNumber.push(Number(i));
+// }
 
 const Booking = () => {
   const { user } = useSelector((state) => state.auth);
   const { booking } = useSelector((state) => state.booking);
-  const { rooms } = useSelector((state) => state.room);
+  const { rooms, roomDetail } = useSelector((state) => state.room);
   const { reservation } = useBooking();
+
+  const { roomId } = useParams()
+
+  // console.log(roomId);
+  console.log(roomDetail);
 
   const { getRoomsInfo } = useRooms();
   const { getReservationInfo } = useBooking();
   const calendarRef = useRef();
-  const [selectedGuestNumber, setSelectedGuestNumber] = useState("");
-  const [filteredRooms, setFilteredRooms] = useState([]);
+  // const [selectedGuestNumber, setSelectedGuestNumber] = useState("");
+  // const [filteredRooms, setFilteredRooms] = useState([]);
 
   const navigate = useNavigate();
 
-  const handleGuestNumberChange = (selectedGuests) => {
-    setSelectedGuestNumber(selectedGuests);
+  // const handleGuestNumberChange = (selectedGuests) => {
+  //   setSelectedGuestNumber(selectedGuests);
 
-    const availableRooms = rooms.filter((room) => {
-      switch (true) {
-        case selectedGuests === 1:
-          return room.bedType === "single";
-        case selectedGuests === 2:
-          return room.bedType === "double";
-        case selectedGuests > 2 && selectedGuests <= 4:
-          return room.bedType === "family";
-        case selectedGuests >= 5:
-          return room.bedType === "king";
-        default:
-          return false;
-      }
-    });
-    setFilteredRooms(availableRooms);
-  };
+  //   const availableRooms = rooms.filter((room) => {
+  //     switch (true) {
+  //       case selectedGuests === 1:
+  //         return room.bedType === "single";
+  //       case selectedGuests === 2:
+  //         return room.bedType === "double";
+  //       case selectedGuests > 2 && selectedGuests <= 4:
+  //         return room.bedType === "family";
+  //       case selectedGuests >= 5:
+  //         return room.bedType === "king";
+  //       default:
+  //         return false;
+  //     }
+  //   });
+  //   setFilteredRooms(availableRooms);
+  // };
 
   useEffect(() => {
-    getRoomsInfo();
+    getRoomsInfo("roomDetail", roomId);
     getReservationInfo();
   }, []);
 
@@ -65,20 +70,24 @@ const Booking = () => {
       arrival_date: selectedDateRange.arrival_date,
       departure_date: selectedDateRange.departure_date,
       username: user?.username,
-      guest_number: selectedGuestNumber,
+      roomNumber:roomDetail?.roomNumber,
+      price:roomDetail?.price
+      // guest_number: selectedGuestNumber,
     };
     console.log("postData: ", postData);
     reservation(postData);
     navigate("/booking/payment");
   };
+  // console.log("calendarRef.current: ",calendarRef.current.getSelectedDateRange().arrival_date);
+  // console.log("calendarRef.current: ",calendarRef.current.getSelectedDateRange().departure_date);
   return (
     <Box
       sx={{
-        marginTop: "1rem",
+        marginTop: "2rem",
         padding: ".3rem",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
+        justifyContent: "flex-start",
         alignItems: "center",
         
       }}
@@ -99,7 +108,7 @@ const Booking = () => {
         <Stack
           sx={{ flexDirection: "column", gap: "1rem", margin: ".5rem auto" }}
         >
-          <Box
+          {/* <Box
             sx={{
               display: "flex",
               flexDirection: {
@@ -110,8 +119,8 @@ const Booking = () => {
               gap: ".4rem",
             }}
           >
-            {/* <SelectOption label="Guests" guests={guestNumber} ref={guestNumberRef} />
-          <SelectOption label="Rooms" rooms={rooms} ref={guestRef} /> */}
+            <SelectOption label="Guests" guests={guestNumber} ref={guestNumberRef} />
+          <SelectOption label="Rooms" rooms={rooms} ref={guestRef} />
             <SelectOption
               label="Guests"
               guests={guestNumber}
@@ -123,7 +132,7 @@ const Booking = () => {
               rooms={filteredRooms}
               disabled={filteredRooms.length === 0} // Disable if no rooms match
             />
-          </Box>
+          </Box> */}
           <Box
             sx={{
               display: "flex",
@@ -135,7 +144,7 @@ const Booking = () => {
           >
             <MyButton
               onClick={handleSubmit}
-              disabled={filteredRooms.length === 0}
+              // disabled={filteredRooms.length === 0}
             >
               Make a reservation
             </MyButton>

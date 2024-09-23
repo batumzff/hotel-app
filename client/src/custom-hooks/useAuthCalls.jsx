@@ -26,7 +26,7 @@ const useAuthCalls = () => {
             const { data } = await axiosPublic.post("auth/login",userInfo)
             console.log(data);
             dispatch(loginSuccess(data))
-            navigate("/booking")
+            navigate("/rooms")
         } catch (error) {
             dispatch(fetchFail(error))
             console.error(error)

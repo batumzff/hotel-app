@@ -15,7 +15,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import useRooms from "../../custom-hooks/useRooms";
 import { Box, Stack } from "@mui/material";
 import MyButton from "../FORM-INPUTS/MyButton";
-import Grid from "@mui/material/Grid2"; // Import Grid from material UI
+import Grid from "@mui/material/Grid2"; 
 import RatingStatus from "../RATING/RatingStatus";
 import Booking from "../../pages/BOOKING/Booking";
 
@@ -46,16 +46,17 @@ const RoomCard = () => {
             flexDirection:{ xs:"column-reverse", sm:"column-reverse", md:"row-reverse", lg:"row-reverse", xl:"row-reverse"},
             justifyContent: "space-between",
             gap: "2rem",
-            backgroundColor: "rgba(0,0,0,0.3)",
+            backgroundColor: "rgba(255,255,255,0.3)",
             marginTop: "2rem",
             padding: "1rem",
             borderRadius: "25px",
+            
           }}
         >
           <Booking />
           <Box>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-              <Stack sx={{ flexDirection: "row", gap: ".5rem", color:"black" }}>
+              <Stack sx={{ flexDirection: "row", gap: ".5rem" }}>
                 <Typography sx={{fontWeight:"900"}}>{roomDetail?.roomNumber}</Typography>
                 <Typography sx={{fontWeight:"900"}}>{roomDetail?.bedType}</Typography>
               </Stack>
