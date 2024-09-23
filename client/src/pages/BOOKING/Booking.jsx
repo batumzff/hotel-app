@@ -76,7 +76,7 @@ const Booking = () => {
     };
     console.log("postData: ", postData);
     reservation(postData);
-    navigate("/booking/payment");
+    navigate("/payment");
   };
   // console.log("calendarRef.current: ",calendarRef.current.getSelectedDateRange().arrival_date);
   // console.log("calendarRef.current: ",calendarRef.current.getSelectedDateRange().departure_date);

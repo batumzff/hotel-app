@@ -203,6 +203,7 @@ const PaymentForm = () => {
           name: data.fullName,
           email: data.email,
         },
+        
       });
 
       if (paymentMethodError) {
@@ -216,8 +217,9 @@ const PaymentForm = () => {
       const { data: { clientSecret } } = await axiosWithToken.post("payments/create", {
         amount: booking[0]?.totalPrice * 100, // Stripe accepts amounts in cents
         currency: "usd",
+        status:true,
       });
-
+console.log(clientSecret)
       // Confirm card payment with Stripe
       const { error: confirmError, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
         payment_method: paymentMethod.id,

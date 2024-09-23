@@ -25,11 +25,11 @@ const AppRouter = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
-          path="booking"
+          path="payment"
           element={<PrivateRouter allowedRoles={[ "admin", "staff", "user"]} />}
         >
-          <Route index element={<Booking />} />
-          <Route path="payment" element={<Payment />} />
+         
+          <Route path="" element={<Payment />} />
         </Route>
         <Route
           path="profile"
