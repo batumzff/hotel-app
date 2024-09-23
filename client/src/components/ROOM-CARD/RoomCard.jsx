@@ -8,7 +8,6 @@ import CardActions from "@mui/material/CardActions";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useSelector } from "react-redux";
@@ -16,12 +15,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import useRooms from "../../custom-hooks/useRooms";
 import { Box, Stack } from "@mui/material";
 import MyButton from "../FORM-INPUTS/MyButton";
-import backgroundimg from "../../assets/images/backgroundimg.jpg";
 import Grid from "@mui/material/Grid2"; // Import Grid from material UI
 import RatingStatus from "../RATING/RatingStatus";
 import Booking from "../../pages/BOOKING/Booking";
 
-const RoomCard = ({ detail }) => {
+const RoomCard = () => {
   const { roomId } = useParams();
 
   const { rooms, roomDetail } = useSelector((state) => state.room);
@@ -35,6 +33,8 @@ const RoomCard = ({ detail }) => {
   useEffect(() => {
     roomId ? getRoomsInfo("roomDetail", roomId) : getRoomsInfo();
   }, [roomId]);
+
+  console.log(roomId);
   console.log(roomDetail);
 
   return (
@@ -43,39 +43,50 @@ const RoomCard = ({ detail }) => {
         <Box
           sx={{
             display: "flex",
+            flexDirection:{ xs:"column-reverse", sm:"column-reverse", md:"row-reverse", lg:"row-reverse", xl:"row-reverse"},
             justifyContent: "space-between",
             gap: "2rem",
-            backgroundColor: "rgba(0,0,0,0.2)",
+            backgroundColor: "rgba(0,0,0,0.3)",
             marginTop: "2rem",
             padding: "1rem",
-            borderRadius:"25px",
+            borderRadius: "25px",
           }}
         >
           <Booking />
           <Box>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-              <Stack sx={{ flexDirection: "row", gap: ".5rem" }}>
-                <Typography >{roomDetail?.roomNumber}</Typography>
-                <Typography >{roomDetail?.bedType}</Typography>
+              <Stack sx={{ flexDirection: "row", gap: ".5rem", color:"black" }}>
+                <Typography sx={{fontWeight:"900"}}>{roomDetail?.roomNumber}</Typography>
+                <Typography sx={{fontWeight:"900"}}>{roomDetail?.bedType}</Typography>
               </Stack>
-              <Stack sx={{ display: "flex", justifyContent: "center",alignItems:"flex-end" }}>
-                <Typography  sx={{textAlign:"left"}}>Please rate this room.</Typography>
+              <Stack
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "flex-end",
+                }}
+              >
+                <Typography sx={{ textAlign: "left", fontWeight:"700" }}>
+                  Please rate this room.
+                </Typography>
                 <RatingStatus roomId={roomId} />
               </Stack>
             </Box>
             <Box>
-              <img src={roomDetail?.image[0]} alt={roomDetail?.roomNumber} style={{borderRadius:"25px"}}  />
-              <Typography>{roomDetail?.description}</Typography>
-              <Typography>Per night: ${roomDetail?.price}</Typography>
+              <img
+                src={Array.isArray(roomDetail?.image) && roomDetail?.image[0]}
+                alt={roomDetail?.roomNumber}
+                style={{ borderRadius: "25px", width:"100%" }}
+              />
+              <Typography sx={{fontWeight:"700"}}>{roomDetail?.description}</Typography>
+              <Typography  sx={{fontWeight:"700"}}>Per night: ${roomDetail?.price}</Typography>
             </Box>
           </Box>
         </Box>
       ) : (
         rooms.map((room) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={room._id}>
-            {" "}
-            {/* Grid item for each room */}
-            <Card sx={{ maxWidth: 345 }}>
+            <Card sx={{  mt:"1rem" }}>
               <CardHeader
                 avatar={
                   <Avatar sx={{ backgroundColor: "red" }} aria-label="recipe">

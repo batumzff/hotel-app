@@ -69,6 +69,7 @@ const AuthForm = ({ formType, schema }) => {
         padding: "1rem",
         margin: "1rem auto",
         borderRadius: ".4rem",
+        backgroundColor:"rgba(255,255,255,0.7)",
         boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)",
 
         "@media (max-width: 500px)": {
@@ -106,7 +107,6 @@ const AuthForm = ({ formType, schema }) => {
                       id={item.id}
                       name={item.name}
                       {...register(item.name)}
-
                     />
                     <IconButton
                   aria-label="toggle password visibility"
@@ -127,7 +127,7 @@ const AuthForm = ({ formType, schema }) => {
                     {...register(item.name)}
                   />
                 )}
-                <Box>{errors[item.name]?.message}</Box>
+                <Box sx={{color:"red"}}>{errors[item.name]?.message}</Box>
               </Stack>
             ))
           : formLoginInputs.map((item) => (
@@ -169,7 +169,7 @@ const AuthForm = ({ formType, schema }) => {
                     {...register(item.name)}
                   />
                 )}
-                <Typography>{errors[item.name]?.message}</Typography>
+                <Typography sx={{color:"red"}}>{errors[item.name]?.message}</Typography>
               </Stack>
             ))}
         <MyButton
