@@ -27,8 +27,9 @@ const PaymentSchema = new Schema(
       required: true,
     },
     status: {
-      type: Boolean,
-      default: false,
+      type: String,  // Change status to String
+      enum: ['requires_payment_method', 'requires_action', 'succeeded', 'failed'],  // Add other statuses as needed
+      required: true,
     },
   },
   {

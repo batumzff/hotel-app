@@ -28,11 +28,13 @@ module.exports = {
       paymentIntentId: paymentIntent.id,
       status: paymentIntent.status,
     });
+    console.log(payment.status)
     const data = await payment.save();
     console.log("data in payment: ", data);
     res.status(200).send({
       error: false,
       clientSecret: paymentIntent.client_secret,
+      status:true,
     });
   },
   confirmPayment: async (req, res) => {

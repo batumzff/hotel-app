@@ -214,12 +214,15 @@ const PaymentForm = () => {
       console.log('Payment method created:', paymentMethod);
 
       // Make API call to create PaymentIntent on the backend
-      const { data: { clientSecret } } = await axiosWithToken.post("payments/create", {
-        amount: booking[0]?.totalPrice * 100, // Stripe accepts amounts in cents
-        currency: "usd",
-        status:true,
-      });
-console.log(clientSecret)
+     
+        
+        const { data: { clientSecret } } = await axiosWithToken.post("payments/create", {
+          amount: booking[0]?.totalPrice * 100, // Stripe accepts amounts in cents
+          currency: "usd",
+          status:true,
+        });
+      
+// console.log(clientSecret)
       // Confirm card payment with Stripe
       const { error: confirmError, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
         payment_method: paymentMethod.id,

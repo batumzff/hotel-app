@@ -85,13 +85,16 @@ module.exports = {
     // If the room is available, proceed with reservation
     req.body.userId = userId;
     req.body.roomId = roomInfo._id;
-    // req.body.night = nightCalc(arrival_date, departure_date);
-    // req.body.totalPrice = req.body.night * req.body.price;
+    req.body.night = nightCalc(arrival_date, departure_date);
+    req.body.totalPrice = req.body.night * req.body.price;
     req.body.status = "waiting";
     const reservation = await Reservation.create(req.body);
 
     setTimeout(async () => {
       const paymentStatus = await Payment.findOne({ userId: user._id });
+      console.log("paymentStatus:",paymentStatus)
+      console.log("paymentStatus.status:",paymentStatus.status)
+
   
       if (paymentStatus && paymentStatus.status) {
         // Payment successful
