@@ -12,6 +12,7 @@ export default function RatingStatus({ roomId, readOnlyStatus }) {
   const { user } = useSelector(state => state.auth)
   const { updateRooms } = useRooms()
   console.log(user)
+  
   const handleRating = (e, newValue) => {
 
     const ratingValue = Number(newValue);

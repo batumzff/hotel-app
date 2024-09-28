@@ -10,7 +10,6 @@ const PaymentSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
-      unique: true,
       index: true,
     },
     amount: {
@@ -27,9 +26,8 @@ const PaymentSchema = new Schema(
       required: true,
     },
     status: {
-      type: String,  // Change status to String
-      enum: ['requires_payment_method', 'requires_action', 'succeeded', 'failed'],  // Add other statuses as needed
-      required: true,
+      type: Boolean,
+      default: false,
     },
   },
   {

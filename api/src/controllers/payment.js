@@ -26,15 +26,14 @@ module.exports = {
       currency,
       userId: req?.user?._id,
       paymentIntentId: paymentIntent.id,
-      status: paymentIntent.status,
+      // status: paymentIntent.status,
+      status: true,
     });
-    console.log(payment.status)
     const data = await payment.save();
     console.log("data in payment: ", data);
     res.status(200).send({
       error: false,
       clientSecret: paymentIntent.client_secret,
-      status:true,
     });
   },
   confirmPayment: async (req, res) => {

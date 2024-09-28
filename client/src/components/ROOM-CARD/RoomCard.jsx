@@ -34,8 +34,8 @@ const RoomCard = () => {
     roomId ? getRoomsInfo("roomDetail", roomId) : getRoomsInfo();
   }, [roomId]);
 
-  console.log(roomId);
-  console.log(roomDetail);
+  // console.log(roomId);
+  // console.log(roomDetail);
 
   return (
     <Grid container spacing={4} sx={{ placeContent: "center" }}>

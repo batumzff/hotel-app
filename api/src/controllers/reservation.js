@@ -91,12 +91,9 @@ module.exports = {
     const reservation = await Reservation.create(req.body);
 
     setTimeout(async () => {
-      const paymentStatus = await Payment.findOne({ userId: user._id });
-      console.log("paymentStatus:",paymentStatus)
-      console.log("paymentStatus.status:",paymentStatus.status)
-
+      const payment = await Payment.findOne({ userId: user._id });
   
-      if (paymentStatus && paymentStatus.status) {
+      if (payment && payment.status) {
         // Payment successful
         await Reservation.updateOne({ _id: reservation._id }, { status: "payment successful" });
         console.log("Payment successful for reservation:", reservation._id);

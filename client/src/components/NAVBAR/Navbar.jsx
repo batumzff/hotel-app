@@ -118,8 +118,6 @@ export default function Navbar() {
     </Box>
   );
 
- 
-
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -215,25 +213,31 @@ export default function Navbar() {
             />
           </Search>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {navbarNavigation.map((item) => ( item.name !== "Profile" &&
-              <Link
-                to={item.to}
-                key={item.name}
-                style={{
-                  textDecoration: "none",
-                  color: "white",
-                  marginRight: "20px",
-                }}
-              >
-                {item.name}
-              </Link>
-            ))}
-          </Box>
-          <Box sx={{display:"flex"}}>
-            {(user?.isAdmin || user?.isStaff) && (
-             <Box onClick={handleReview}> <Review  /></Box>
+            {navbarNavigation.map(
+              (item) =>
+                item.name !== "Profile" && (
+                  <Link
+                    to={item.to}
+                    key={item.name}
+                    style={{
+                      textDecoration: "none",
+                      color: "white",
+                      marginRight: "20px",
+                    }}
+                  >
+                    {item.name}
+                  </Link>
+                )
             )}
-            
+          </Box>
+          <Box sx={{ display: "flex" }}>
+            {(user?.isAdmin || user?.isStaff) && (
+              <Box onClick={handleReview}>
+                {" "}
+                <Review />
+              </Box>
+            )}
+
             {/* <IconButton
               size="large"
               aria-label="show 17 new notifications"
@@ -252,7 +256,16 @@ export default function Navbar() {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-             {user?.image ? <img src={user?.image} alt={user?.username} width={50} style={{borderRadius:"50%"}} /> :<AccountCircle />}
+              {user && Array.isArray(user?.image) && user?.image[0] ? (
+                <img
+                  src={user?.image[0]}
+                  alt={user?.username}
+                  width={50}
+                  style={{ borderRadius: "50%" }}
+                />
+              ) : (
+                <AccountCircle />
+              )}
             </IconButton>
           </Box>
         </Toolbar>
