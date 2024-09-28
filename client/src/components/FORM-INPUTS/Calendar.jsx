@@ -55,10 +55,15 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Calendar = forwardRef((props, ref) => {
   const [startDate, setStartDate] = useState(dayjs());
-  const [endDate, setEndDate] = useState(dayjs().add(7, 'day'));
+  const [endDate, setEndDate] = useState(dayjs());
+  const {rooms} = useSelector(state=>state.room)
+  const {roomId} = useParams()
+
 
   useImperativeHandle(ref, () => ({
     getSelectedDateRange: () => ({
@@ -74,8 +79,17 @@ const Calendar = forwardRef((props, ref) => {
   const handleEndDateChange = (date) => {
     setEndDate(date);
   };
-console.log(startDate)
-console.log(endDate)
+ const selectedRoom = roomId ? rooms?.find(room=> room._id.toString() === roomId) : null
+// console.log(startDate)
+// console.log(endDate)
+const nights = new Date(endDate).getTime() - new Date(startDate).getTime();
+// console.log(nights);
+const bill = Math.floor(nights / (24 * 60 * 60 * 1000)); // Corrected division by milliseconds per day
+// console.log(bill);
+const fee = bill*(selectedRoom?.price)
+console.log(selectedRoom)
+console.log(fee)
+// console.log( rooms?.filter(room=> room._id.toString() == roomId))
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Box
@@ -102,6 +116,9 @@ console.log(endDate)
             renderInput={(params) => <TextField {...params} fullWidth />}
           />
         </Stack>
+        <Box>
+Total price : ${fee}
+        </Box>
       </Box>
     </LocalizationProvider>
   );
