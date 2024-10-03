@@ -23,7 +23,7 @@ router.use('/rooms', require('./room'))
 router.use('/messages', require('./message'))
 
 // payment
-router.use('/payments', require('./payment'))
+// router.use('/payments', require('./payment'))
 
 
 // document:

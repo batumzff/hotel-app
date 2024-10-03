@@ -46,17 +46,28 @@ const Booking = () => {
 
   const handleSubmit = () => {
     const selectedDateRange = calendarRef.current.getSelectedDateRange();
+    const selectedRoom = roomId ? rooms?.find(room=> room._id.toString() === roomId) : null
+    const nights = new Date(selectedDateRange.departure_date).getTime() - new Date(selectedDateRange.arrival_date).getTime();
+// console.log(nights);
+const bill = Math.floor(nights / (24 * 60 * 60 * 1000)); // Corrected division by milliseconds per day
+// console.log(bill);
+const total_price = bill*(selectedRoom?.price)
+const data = {total_price}
+// console.log(selectedRoom)
+// console.log(fee)
+
     const postData = {
       arrival_date: selectedDateRange.arrival_date,
       departure_date: selectedDateRange.departure_date,
       username: user?.username,
       roomNumber: roomDetail?.roomNumber,
       price: roomDetail?.price,
+
       // guest_number: selectedGuestNumber,
     };
     console.log("postData: ", postData);
     reservation(postData);
-    navigate("/payment");
+    navigate("/payment",{ state: data }); 
   };
   // console.log(
   //   "calendarRef.current: ",

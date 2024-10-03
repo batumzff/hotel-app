@@ -256,9 +256,9 @@ export default function Navbar() {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              {user && Array.isArray(user?.image) && user?.image[0] ? (
+              {user  && user?.image ? (
                 <img
-                  src={user?.image[0]}
+                  src={user?.image}
                   alt={user?.username}
                   width={50}
                   style={{ borderRadius: "50%" }}
