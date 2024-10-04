@@ -18,8 +18,6 @@ const Upload = lazy(() => import("../pages/UPLOAD/Upload"));
 const Profile = lazy(() => import("../pages/PROFILE/Profile"));
 const Messages = lazy(() => import("../pages/MESSAGES/Messages"));
 const NotFound = lazy(() => import("../pages/404/NotFound"));
-const ReturnForm = lazy(() => import("../components/PAYMENT-FORM/ReturnForm"));
-const CheckoutForm = lazy(() => import("../components/PAYMENT-FORM/CheckoutForm"));
 
 const AppRouter = () => {
   return (
@@ -27,14 +25,12 @@ const AppRouter = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
-          path="payment"
+          path="booking"
           element={<PrivateRouter allowedRoles={[ "admin", "staff", "user"]} />}
         >
-         
-          <Route path="" element={<Payment />} />
+          <Route index element={<Booking />} />
+          <Route path="payment" element={<Payment />} />
         </Route>
-        <Route path="/checkout" element={<CheckoutForm />} />
-          <Route path="/return" element={<ReturnForm />} />
         <Route
           path="profile"
           element={<PrivateRouter allowedRoles={[ "admin", "staff", "user"]} />}

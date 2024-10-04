@@ -21,7 +21,7 @@ const Booking = () => {
   const { rooms, roomDetail } = useSelector((state) => state.room);
   const { reservation } = useBooking();
 
-  const { roomId } = useParams();
+  const { roomId } = useParams()
 
   // console.log(roomId);
   console.log(roomDetail);
@@ -33,6 +33,26 @@ const Booking = () => {
   // const [filteredRooms, setFilteredRooms] = useState([]);
 
   const navigate = useNavigate();
+
+  // const handleGuestNumberChange = (selectedGuests) => {
+  //   setSelectedGuestNumber(selectedGuests);
+
+  //   const availableRooms = rooms.filter((room) => {
+  //     switch (true) {
+  //       case selectedGuests === 1:
+  //         return room.bedType === "single";
+  //       case selectedGuests === 2:
+  //         return room.bedType === "double";
+  //       case selectedGuests > 2 && selectedGuests <= 4:
+  //         return room.bedType === "family";
+  //       case selectedGuests >= 5:
+  //         return room.bedType === "king";
+  //       default:
+  //         return false;
+  //     }
+  //   });
+  //   setFilteredRooms(availableRooms);
+  // };
 
   useEffect(() => {
     getRoomsInfo("roomDetail", roomId);
@@ -46,38 +66,20 @@ const Booking = () => {
 
   const handleSubmit = () => {
     const selectedDateRange = calendarRef.current.getSelectedDateRange();
-    const selectedRoom = roomId ? rooms?.find(room=> room._id.toString() === roomId) : null
-    const nights = new Date(selectedDateRange.departure_date).getTime() - new Date(selectedDateRange.arrival_date).getTime();
-// console.log(nights);
-const bill = Math.floor(nights / (24 * 60 * 60 * 1000)); // Corrected division by milliseconds per day
-// console.log(bill);
-const total_price = bill*(selectedRoom?.price)
-const data = {total_price}
-// console.log(selectedRoom)
-// console.log(fee)
-
     const postData = {
       arrival_date: selectedDateRange.arrival_date,
       departure_date: selectedDateRange.departure_date,
       username: user?.username,
-      roomNumber: roomDetail?.roomNumber,
-      price: roomDetail?.price,
-
+      roomNumber:roomDetail?.roomNumber,
+      price:roomDetail?.price
       // guest_number: selectedGuestNumber,
     };
     console.log("postData: ", postData);
     reservation(postData);
-    navigate("/payment",{ state: data }); 
+    navigate("/booking/payment");
   };
-  // console.log(
-  //   "calendarRef.current: ",
-  //   calendarRef.current.getSelectedDateRange().arrival_date
-  // );
-  // console.log(
-  //   "calendarRef.current: ",
-  //   calendarRef.current.getSelectedDateRange().departure_date
-  // );
- 
+  // console.log("calendarRef.current: ",calendarRef.current.getSelectedDateRange().arrival_date);
+  // console.log("calendarRef.current: ",calendarRef.current.getSelectedDateRange().departure_date);
   return (
     <Box
       sx={{
@@ -87,6 +89,7 @@ const data = {total_price}
         flexDirection: "column",
         justifyContent: "flex-start",
         alignItems: "center",
+        
       }}
     >
       {/* <ErrorPage/> */}
@@ -105,17 +108,49 @@ const data = {total_price}
         <Stack
           sx={{ flexDirection: "column", gap: "1rem", margin: ".5rem auto" }}
         >
+          {/* <Box
+            sx={{
+              display: "flex",
+              flexDirection: {
+                xs: "column",
+                sm: "row",
+                md: "row",
+              },
+              gap: ".4rem",
+            }}
+          >
+            <SelectOption label="Guests" guests={guestNumber} ref={guestNumberRef} />
+          <SelectOption label="Rooms" rooms={rooms} ref={guestRef} />
+            <SelectOption
+              label="Guests"
+              guests={guestNumber}
+              onChange={handleGuestNumberChange}
+            />
+
+            <SelectOption
+              label="Rooms"
+              rooms={filteredRooms}
+              disabled={filteredRooms.length === 0} // Disable if no rooms match
+            />
+          </Box> */}
           <Box
             sx={{
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
-              gap: "1rem",
+              gap:"1rem"
             }}
           >
-           
-            <MyButton onClick={handleSubmit}>Make a reservation</MyButton>
+            <MyButton
+              onClick={handleSubmit}
+              // disabled={filteredRooms.length === 0}
+            >
+              Make a reservation
+            </MyButton>
+            {/* <MyButton disabled={filteredRooms.length === 0}>
+              New reservation
+            </MyButton> */}
           </Box>
         </Stack>
       </Stack>

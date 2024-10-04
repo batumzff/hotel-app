@@ -29,7 +29,7 @@ const PaymentForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting, isSubmitSuccessful },
+    formState: { errors, isSubmitSuccessful },
     reset,
   } = useForm({ resolver: yupResolver(cardSchema) });
 
@@ -47,8 +47,6 @@ const PaymentForm = () => {
 
     // Get card details from CardElement
     const cardElement = elements.getElement(CardElement);
-
-    console.log(cardElement);
 
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
@@ -87,7 +85,7 @@ const PaymentForm = () => {
     <Box
       component="form"
       onSubmit={handleSubmit(onSubmit)}
-      sx={{ maxWidth: 400, margin: "1rem auto", p: ".5rem" }}
+      sx={{ maxWidth: 400, margin: "1rem auto", p: ".5rem", backgroundColor:"rgba(255, 255, 255, 0.8)" }}
     >
       {/* Full Name Field */}
 
@@ -126,7 +124,7 @@ const PaymentForm = () => {
         type="submit"
         variant="contained"
         color="primary"
-        disabled={!stripe || loading}
+        disabled={(booking?.status== "waiting") || !stripe || loading }
         fullWidth
         startIcon={loading ? <CircularProgress size={20} /> : null}
       >

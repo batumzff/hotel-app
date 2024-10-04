@@ -87,7 +87,7 @@ export default function Navbar() {
   const { logout } = useAuthCalls();
   const navigate = useNavigate();
 
-  // console.log(user);
+  console.log(user);
   // console.log(token);
 
   const handleDrawerToggle = () => {
@@ -256,7 +256,7 @@ export default function Navbar() {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              {user  && user?.image ? (
+              {(user  && user?.image) ? (
                 <img
                   src={user?.image}
                   alt={user?.username}

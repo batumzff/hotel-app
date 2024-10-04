@@ -7,7 +7,7 @@ const initialState = {
       firstName: "",
       lastName: "",
       email: "",
-      image: [],
+      image: "",
       biography:"",
       isActive: "",
       isAdmin: "",

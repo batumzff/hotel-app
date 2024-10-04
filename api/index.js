@@ -12,8 +12,6 @@
 */
 const express = require("express");
 const app = express();
-const Stripe = require("stripe");
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 /* ------------------------------------------------------- */
 // Required Modules:
@@ -31,7 +29,6 @@ require("express-async-errors");
 
 // Connect to DB:
 const { dbConnection } = require("./src/configs/dbConnection");
-const message = require("./src/models/message");
 dbConnection();
 
 /* ------------------------------------------------------- */
@@ -39,8 +36,12 @@ dbConnection();
 
 // Accept JSON:
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(require("cors")());
+
+app.use(express.urlencoded({extended: true}))
+
+app.use(require("cors")())
+
+app.use('/uploads', express.static('./uploads'))
 
 // Query Handler:
 app.use(require("./src/middlewares/queryHandler"));
@@ -63,89 +64,18 @@ app.all("/", (req, res) => {
   res.send({
     error: false,
     message: "Welcome to HOTEL API",
-    user: req.user,
+    user: req.user
   });
 });
-
-
-/* ------------------------STRIPE------------------------------- */
-
-// app.post('/create-checkout-session', async (req, res) => {
-//   console.log(req.body)
-//   const total_price = req.body.total_price
-//   const session = await stripe.checkout.sessions.create({
-//     ui_mode: 'embedded',
-//     line_items: [
-//       {
-//         price_data: {
-//           currency: 'usd', 
-//           product_data: {
-//             name: 'Room Reservation', 
-//           },
-//           unit_amount: total_price * 100, 
-//         },
-//         quantity: 1, 
-//       },
-//     ],
-//     mode: 'payment',
-//     return_url: `${process.env.DOMAIN}/return?session_id={CHECKOUT_SESSION_ID}`,
-//   });
-
-//   res.send({clientSecret: session.client_secret});
-// });
-
-// app.get('/session-status', async (req, res) => {
-//   const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
-
-//   res.send({
-//     status: session.status,
-//     customer_email: session.customer_details.email
-//   });
-// });
-app.post('/create-checkout-session', async (req, res) => {
- 
-    
-    const total_price = req.body.total_price;
-
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      line_items: [
-        {
-          price_data: {
-            currency: 'usd',
-            product_data: {
-              name: 'Room Reservation',
-            },
-            unit_amount: total_price * 100, // Convert price to cents
-          },
-          quantity: 1,
-        },
-      ],
-      mode: 'payment',
-      success_url: `${process.env.DOMAIN}/success?session_id={CHECKOUT_SESSION_ID}`, // Handle successful payment
-      cancel_url: `${process.env.DOMAIN}/cancel`, // Handle cancelled payments
-    });
-
-    // Return session id to the client
-    res.send({ sessionId: session.id });
-   
-});
-
-
-/* ------------------------------------------------------- */
-
-
 app.all("*", (req, res) => {
-
   res.status(404).send({
     error: true,
-    message: "This route is not valid",
+    message: "There is no valid route",
+    user: req.user
   });
 });
 
-
-
-
+/* ------------------------------------------------------- */
 
 // errorHandler:
 app.use(require("./src/middlewares/errorHandler"));

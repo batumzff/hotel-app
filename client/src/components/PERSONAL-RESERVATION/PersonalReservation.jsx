@@ -48,9 +48,9 @@ const PersonalReservation = () => {
               borderRadius: "50%",
             }}
           >
-            <CloseIcon
+          {booking?.length !== 0 &&  <CloseIcon
               sx={{ "&:hover": { color: "red", transition: "0.5s ease" } }}
-            />
+            />}
           </Box>
           <Typography sx={{ textAlign: "center" }}>
             {booking[0]?.userId.username && "Dear"}{" "}
