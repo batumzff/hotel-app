@@ -2,12 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import useBooking from "../../custom-hooks/useBooking";
 import { Box, Stack, Typography } from "@mui/material";
-import Calendar from "../../components/FORM-INPUTS/Calendar";
-import MyButton from "../../components/FORM-INPUTS/MyButton";
-import SelectOption from "../../components/FORM-INPUTS/SelectOption";
+import Calendar from "../FORM-INPUTS/Calendar";
+import MyButton from "../FORM-INPUTS/MyButton";
+import SelectOption from "../FORM-INPUTS/SelectOption";
 import useRooms from "../../custom-hooks/useRooms";
-import ErrorPage from "../../components/ERROR-PAGE/ErrorPage";
-import ErrorModal from "../../components/ERROR-MODAL/ErrorModal";
+import ErrorPage from "../ERROR-PAGE/ErrorPage";
+import ErrorModal from "../ERROR-MODAL/ErrorModal";
 import { useNavigate, useParams } from "react-router-dom";
 
 // const guestNumber = [];
@@ -76,7 +76,7 @@ const Booking = () => {
     };
     console.log("postData: ", postData);
     reservation(postData);
-    navigate("/booking/payment");
+    navigate("/payment");
   };
   // console.log("calendarRef.current: ",calendarRef.current.getSelectedDateRange().arrival_date);
   // console.log("calendarRef.current: ",calendarRef.current.getSelectedDateRange().departure_date);

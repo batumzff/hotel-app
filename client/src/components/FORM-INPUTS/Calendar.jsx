@@ -48,7 +48,7 @@
 
 // export default Calendar;
 
-import React, { useState, forwardRef, useImperativeHandle } from "react";
+import React, { useState, forwardRef, useImperativeHandle, useEffect } from "react";
 import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -56,14 +56,38 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import useAxios from "../../custom-hooks/useAxios";
 
 const Calendar = forwardRef((props, ref) => {
   const [startDate, setStartDate] = useState(dayjs());
-  const [endDate, setEndDate] = useState(dayjs());
-  const {rooms} = useSelector(state=>state.room)
-  const {roomId} = useParams()
+  const [endDate, setEndDate] = useState(dayjs().add(7, 'day'));
+  const [reservedDates, setReservedDates] = useState([])
+  const { roomId } = useParams()
+  const { axiosWithToken } = useAxios();
 
+
+  console.log(roomId);
+
+  const getRoomReservationInfo = async () => {
+    try {
+      const { data } = await axiosWithToken(
+        `reservations?filter[roomId]=${roomId}`
+      );
+      console.log(data);
+      setReservedDates(data?.data)
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // console.log(reservedDates);
+ 
+
+  useEffect(() => {
+    getRoomReservationInfo();
+
+  }, [roomId])
+  
 
   useImperativeHandle(ref, () => ({
     getSelectedDateRange: () => ({
@@ -79,17 +103,17 @@ const Calendar = forwardRef((props, ref) => {
   const handleEndDateChange = (date) => {
     setEndDate(date);
   };
- const selectedRoom = roomId ? rooms?.find(room=> room._id.toString() === roomId) : null
 // console.log(startDate)
 // console.log(endDate)
-const nights = new Date(endDate).getTime() - new Date(startDate).getTime();
-// console.log(nights);
-const bill = Math.floor(nights / (24 * 60 * 60 * 1000)); // Corrected division by milliseconds per day
-// console.log(bill);
-const fee = bill*(selectedRoom?.price)
-console.log(selectedRoom)
-console.log(fee)
-// console.log( rooms?.filter(room=> room._id.toString() == roomId))
+
+
+const isDateReserved = (date) => {
+  return reservedDates.some(reservation => {
+    const arrival = dayjs(reservation["arrival_date"])
+    const departure = dayjs(reservation["departure_date"])
+    return date.isBetween(arrival, departure, "day", "[]")
+  }) 
+}
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Box
@@ -98,8 +122,8 @@ console.log(fee)
           flexDirection: "column",
           gap: "1rem",
           width: "100%",
-          maxWidth: "500px", // Adjust the max width as needed
-          margin: "0 auto", // Center horizontally
+          maxWidth: "500px", 
+          margin: "1rem auto",
         }}
       >
         <Stack spacing={2}>
@@ -107,18 +131,17 @@ console.log(fee)
             label="Arrival Date"
             value={startDate}
             onChange={handleStartDateChange}
+            shouldDisableDate={isDateReserved}
             renderInput={(params) => <TextField {...params} fullWidth />}
           />
           <DatePicker
             label="Departure Date"
             value={endDate}
             onChange={handleEndDateChange}
+            shouldDisableDate={isDateReserved}
             renderInput={(params) => <TextField {...params} fullWidth />}
           />
         </Stack>
-        <Box>
-Total price : ${fee}
-        </Box>
       </Box>
     </LocalizationProvider>
   );
