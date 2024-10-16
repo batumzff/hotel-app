@@ -59,7 +59,7 @@ const Footer = () => {
         padding: "0 10%",
       }}
     >
-      <Typography>© 2024 PyScript Hotels Group</Typography>
+      <Typography  sx={{fontWeight:"700","@media (max-width: 530px) and (min-width: 344px)":{fontSize:"0.9rem"} }}>© 2024 PyScript Hotels Group</Typography>
       <Box sx={containerStyles}>
         <WhatsAppIcon className="icon icon-whatsapp" sx={iconStyles} />
         <LinkedInIcon className="icon icon-linkedin" sx={iconStyles} />
