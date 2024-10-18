@@ -23,7 +23,7 @@ import SocialMediaModal from "../SOCIAL-MEDIA/SocialMediaModal";
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  color: #252525;
+  color: violet;
   transition: all 1s ease;
   &:hover {
     color: white;
@@ -38,8 +38,6 @@ function RoomCard() {
   const navigate = useNavigate();
 
   console.log(token);
-
-
 
   const handleNavigate = (id) => {
     navigate(`/room-detail/${id}`);
@@ -68,6 +66,7 @@ function RoomCard() {
             justifyContent: "space-between",
             gap: "2rem",
             backgroundColor: "rgba(0,0,0,0.3)",
+            color: "#fff",
             marginTop: "2rem",
             padding: "1rem",
             borderRadius: "25px",
@@ -85,14 +84,12 @@ function RoomCard() {
             >
               <StyledLink to="/login">
                 Please login first for booking
-              </StyledLink>{" "}
+              </StyledLink>
             </Box>
           )}
           <Box>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-              <Stack
-                sx={{ flexDirection: "row", gap: ".5rem", color: "black" }}
-              >
+              <Stack sx={{ flexDirection: "row", gap: ".5rem", color: "#fff" }}>
                 <Typography sx={{ fontWeight: "900" }}>
                   {roomDetail?.roomNumber}
                 </Typography>
@@ -131,10 +128,15 @@ function RoomCard() {
       ) : (
         rooms.map((room) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={room._id}>
-            <Card sx={{ mt: "1rem" }}>
+            <Card
+              sx={{ mt: "1rem", backgroundColor: "rgba(90, 145, 197, 0.7)" }}
+            >
               <CardHeader
                 avatar={
-                  <Avatar sx={{ backgroundColor: "red" }} aria-label="recipe">
+                  <Avatar
+                    sx={{ backgroundColor: "violet" }}
+                    aria-label="recipe"
+                  >
                     {room.roomNumber}
                   </Avatar>
                 }
@@ -146,12 +148,21 @@ function RoomCard() {
                 title={room.bedType}
                 subheader={new Date(room.createdAt).toLocaleDateString()}
               />
-              <CardMedia
-                component="img"
-                height="194"
-                image={room.image[0]}
-                alt={room.roomNumber}
-              />
+              <Box
+                sx={{
+                  overflow: "hidden",
+                  "&:hover img": { transform: "scale(1.2)" },
+                }}
+              >
+                <CardMedia
+                  component="img"
+                  height="194"
+                  image={room.image[0]}
+                  alt={room.roomNumber}
+                  sx={{ transition: "transform 0.5s ease" }}
+                />
+              </Box>
+
               <CardContent>
                 <Typography
                   variant="body2"
