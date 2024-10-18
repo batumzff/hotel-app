@@ -8,22 +8,20 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
-import Badge from "@mui/material/Badge";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import MailIcon from "@mui/icons-material/Mail";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import MoreIcon from "@mui/icons-material/MoreVert";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import logo from "../../assets/images/logo.png";
 import logo1 from "../../assets/images/logo-1.png";
-import { ListItemButton, Menu, MenuItem, Stack } from "@mui/material";
+import ListItemButton from "@mui/material/ListItemButton";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import useAuthCalls from "../../custom-hooks/useAuthCalls";
-import Review from "../REVIEW/Review";
+import MessagesFromUsers from "../MESSAGES-USERS/MessagesFromUsers";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 
 // ! styled elements for search part
 const Search = styled("div")(({ theme }) => ({
@@ -173,10 +171,6 @@ export default function Navbar() {
     </Menu>
   );
 
-  const handleReview = () => {
-    navigate("/messages");
-  };
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -230,23 +224,22 @@ export default function Navbar() {
                 )
             )}
           </Box>
+
           <Box sx={{ display: "flex" }}>
             {(user?.isAdmin || user?.isStaff) && (
-              <Box onClick={handleReview}>
-                {" "}
-                <Review />
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <AdminPanelSettingsIcon
+                    onClick={() => navigate("/authorized")}
+                    sx={{ "&:hover": { cursor: "pointer" } }}
+                  />
+                </Box>
+                <Box onClick={()=> navigate("/authorized")}>
+                <MessagesFromUsers />
+                </Box>
               </Box>
             )}
 
-            {/* <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton> */}
             <IconButton
               size="large"
               edge="end"
@@ -256,10 +249,10 @@ export default function Navbar() {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              {(user  && user?.image) ? (
+              {user && user?.image ? (
                 <img
-                  src={user?.image}
-                  alt={user?.username}
+                  src={user.image}
+                  alt={user.username}
                   width={50}
                   style={{ borderRadius: "50%" }}
                 />
