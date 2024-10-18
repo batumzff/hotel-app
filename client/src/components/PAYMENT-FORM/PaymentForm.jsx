@@ -5,7 +5,7 @@ import { Box, Button, CircularProgress, TextField, Alert } from "@mui/material";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { useSelector } from "react-redux";
 import { cardSchema } from "../../Helpers/formValidation";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useBooking from "../../custom-hooks/useBooking";
 import useAxios from "../../custom-hooks/useAxios";
 
@@ -18,8 +18,16 @@ const PaymentForm = () => {
   const { user } = useSelector((state) => state.auth);
   const { booking } = useSelector((state) => state.booking);
   const { axiosWithToken } = useAxios();
+
+  const location = useLocation()
+  const { from, data:{total} } = location.state || {}
+
+  console.log("from: ", from);
+  console.log("data from location: ", total);
+
   console.log(user);
   console.log(booking);
+
   const { getReservationInfo } = useBooking();
 
   useEffect(() => {
@@ -63,7 +71,7 @@ const PaymentForm = () => {
 
       // Handle backend API call with paymentMethod.id
       const result = await axiosWithToken.post("payments/create", {
-        amount: booking[0]?.totalPrice,
+        amount: total * 100,
         currency: "usd",
         status: true,
       });
@@ -124,7 +132,7 @@ const PaymentForm = () => {
         type="submit"
         variant="contained"
         color="primary"
-        disabled={(booking?.status== "waiting") || !stripe || loading }
+        disabled={!total || !stripe || loading }
         fullWidth
         startIcon={loading ? <CircularProgress size={20} /> : null}
       >
