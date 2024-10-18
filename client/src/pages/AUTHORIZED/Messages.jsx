@@ -106,7 +106,7 @@ const Messages = () => {
   ];
 
   return (
-    <Paper sx={{ m: "3rem 0", p: "1rem", height: 400, width: "100%" }}>
+    <Paper sx={{ position:"relavite", m: "3rem 0", p: "1rem", height: 400, width: "100%" }}>
       <DataGrid
         rows={rows}
         columns={columns}
@@ -116,19 +116,22 @@ const Messages = () => {
         pageSizeOptions={[5, 10]}
         getRowClassName={(params) => (params.row.isRead ? "row-read" : "row-unread")}
         sx={{ border: 0, columnCount: { sm: 2 },  '& .row-read': {
-          backgroundColor: 'green',
-          color: 'white',
+          backgroundColor: 'rgba(136,194,115,0.5)',
+          color: 'black',
         },
         '& .row-unread': {
-          backgroundColor: 'red',
+          backgroundColor: 'rgba(199,37,62,0.5)',
           color: 'white',
-        }, '&:hover': {backgroundColor:"#1976D2"}}}
+        }, 
+        // '&:hover': {backgroundColor:"#1976D2"}
+      }
+      }
         autoHeight
       />
       <MyButton
         color="primary"
         onClick={handleSubmit}
-        style={{ margin: "2.5rem auto" }}
+        style={{ position:"absolute", marginTop: "3rem" , left:"50%"}}
         disabled={loading || selectedIds.length === 0} 
       >
         {loading ? <CircularProgress size={24} /> : "Submit Read Status"}

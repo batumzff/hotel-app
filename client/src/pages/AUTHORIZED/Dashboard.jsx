@@ -80,7 +80,7 @@ const Dashboard = () => {
         <Stack onClick={handleShow} sx={{"&:hover":{cursor:"pointer"}}}>Messages</Stack>
         <Stack onClick={handleShow} sx={{"&:hover":{cursor:"pointer"}}}>Reservations</Stack>
       </Box>
-      <Box sx={{display:"flex", justifyContent:"flex-end",width:"80%"}}>
+      <Box sx={{width:"100%"}}>
         {show.client && <Clients />}
         {show.message && <Messages />}
         {show.reservation && <Reservations />}
