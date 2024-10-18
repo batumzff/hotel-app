@@ -71,7 +71,7 @@ const Calendar = forwardRef((props, ref) => {
   const getRoomReservationInfo = async () => {
     try {
       const { data } = await axiosWithToken(
-        `reservations?filter[roomId]=${roomId}`
+        `reservations?filter[roomId]=${roomId}&[status]="payment successful"`
       );
       console.log(data);
       setReservedDates(data?.data)
@@ -82,7 +82,6 @@ const Calendar = forwardRef((props, ref) => {
 
   // console.log(reservedDates);
  
-
   useEffect(() => {
     getRoomReservationInfo();
 
