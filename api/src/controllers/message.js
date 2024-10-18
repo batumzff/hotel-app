@@ -18,7 +18,7 @@ module.exports = {
             `
         */
 
-    const data = await Message.find({isRead:false}).populate("userId");
+    const data = await Message.find().populate("userId");
 
     res.status(200).send({
       error: false,
@@ -117,7 +117,7 @@ module.exports = {
   },
   unReadPost: async (req, res) => {
     const { messageIds } = req.body;
-    console.log(messageIds);
+    // console.log(messageIds);
     await Message.updateMany(
       { _id: { $in: messageIds } },
       { $set: { isRead: true } }
