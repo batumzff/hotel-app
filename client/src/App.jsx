@@ -5,7 +5,7 @@ import AppRouter from "./router/AppRouter";
 import Navbar from "./components/NAVBAR/Navbar";
 import Footer from "./components/FOOTER/Footer";
 import Box from "@mui/material/Box";
-import backgroundimg from "./assets/images/backgroundimg.jpg";
+import backgroundImg from "./assets/images/backgroundImg.jpg";
 
 
 const stripePromise = loadStripe(import.meta.env.VITE_SECRET_PAYMENT_KEY);
@@ -20,7 +20,7 @@ function App() {
             display: "flex",
             flexDirection: "column",
             minHeight: "100vh",
-            backgroundImage: `url(${backgroundimg})`,
+            backgroundImage: `url(${backgroundImg})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat", 
