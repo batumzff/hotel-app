@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import useBooking from "../../custom-hooks/useBooking";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { useSelector } from "react-redux";
-import useBooking from "../../custom-hooks/useBooking";
 import CloseIcon from "@mui/icons-material/Close";
-import useAxios from "../../custom-hooks/useAxios";
 
 const PersonalReservation = () => {
   const { booking } = useSelector((state) => state.booking);
@@ -53,24 +52,24 @@ const PersonalReservation = () => {
             />}
           </Box>
           <Typography sx={{ textAlign: "center" }}>
-            {booking[0]?.userId.username && "Dear"}{" "}
+            {booking[0]?.userId.username && "Dear"}
             {booking[0]?.userId.username}
           </Typography>
           {booking?.map((book) => (
             <Box key={book._id} sx={{ textAlign: "center", margin: "1rem" }}>
               <Typography>
                 You made a reservation for a {book.roomId.bedType} room (
-                {book.roomId.roomNumber}) from{" "}
-                {new Date(book.arrival_date).toLocaleDateString()} to{" "}
+                {book.roomId.roomNumber}) from
+                {new Date(book.arrival_date).toLocaleDateString()} to
                 {new Date(book.departure_date).toLocaleDateString()}
               </Typography>
               <Typography>
-                with total fee for {book.night}{" "}
+                with total fee for {book.night}
                 {book.night == 1 ? "night" : "nights"} is ${book.price}
               </Typography>
               <Typography>
                 We are ready to serve you to make you have an enjoyable time in
-                our Hotel{" "}
+                our Hotel
               </Typography>
             </Box>
           ))}

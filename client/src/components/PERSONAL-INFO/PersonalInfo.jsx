@@ -71,6 +71,7 @@ const handleForm = () => {
           margin: "1rem auto",
           borderRadius: ".4rem",
           boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)",
+          backgroundColor:"rgba(0,0,0,0.2)",
 
           "@media (max-width: 500px)": {
             border: "none",
