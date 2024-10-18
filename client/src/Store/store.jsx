@@ -14,6 +14,7 @@ import authReducer from '../Features/authSlice'
 import bookingReducer from '../Features/bookingSlice'
 import roomReducer from "../Features/roomSlice"
 import messageReducer from "../Features/messageSlice"
+import authorizedReducer from "../Features/authorizedSlice"
 
 
 
@@ -29,7 +30,8 @@ export const store = configureStore({
     auth: persistedReducer,
     booking: bookingReducer,
     room: roomReducer,
-    message: messageReducer
+    message: messageReducer,
+    authorized: authorizedReducer
   },
   devTools: import.meta.env.NODE_ENV !== "production",
   middleware: (getDefaultMiddleware) =>
