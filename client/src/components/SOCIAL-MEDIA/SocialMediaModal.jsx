@@ -9,6 +9,7 @@ import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
+import { Stack } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -16,7 +17,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: "background.paper",
+  bgcolor: "rgba(255, 255, 255, 0.9)",
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
@@ -58,7 +59,6 @@ const SocialMediaModal = () => {
   return (
     <div>
       <Button onClick={handleOpen}>
-        {" "}
         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>
@@ -71,8 +71,9 @@ const SocialMediaModal = () => {
         aria-describedby="keep-mounted-modal-description"
       >
         <Box sx={style}>
-          <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
-            Pyscript Hotels where dreams come true
+          <Typography id="keep-mounted-modal-title" variant="h6" component="h2" sx={{display:"flex", flexDirection:"column", color:"violet"}}>
+           <Stack as="span">PYSCRIPT Hotels </Stack> 
+           <Stack as="span">where dreams come true</Stack>  
           </Typography>
           {platforms.map((platform) => (
             <Button
