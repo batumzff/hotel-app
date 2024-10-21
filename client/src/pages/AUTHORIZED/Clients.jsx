@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from "react";
-import Box from "@mui/material/Box";
 import useAxios from "../../custom-hooks/useAxios";
 import { useSelector } from "react-redux";
-import { DataGrid } from "@mui/x-data-grid";
-import Paper from "@mui/material/Paper";
 import { Tooltip } from '@mui/material';
 import AuthorizedTable from "./AuthorizedTable";
 import avatar from "../../assets/images/avatar.png"
 
 const Clients = () => {
   const { clients } = useSelector((state) => state.authorized);
-  const { axiosWithToken } = useAxios();
-  const [info, setInfo] = useState({
-    clients: [],
-    reservations: [],
-  });
+  // const { axiosWithToken } = useAxios();
+  // const [info, setInfo] = useState({
+  //   clients: [],
+  //   reservations: [],
+  // });
 
   
 
@@ -83,8 +80,9 @@ const Clients = () => {
     dropdownLabel="Clients"
     renderDropdownItem={(row) => (
       <div>
-        <div>{row.username} (email: {row.email})</div>
         <div>ID: {row.id}</div>
+        <div>Username: {row.username}</div>
+        <div>email: {row.email}</div>
       </div>
     )}
     />

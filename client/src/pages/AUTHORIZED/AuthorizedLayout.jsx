@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import flower from "../../assets/images/flower.jpg";
 
 const AuthorizedLayout = ({ children }) => {
+ 
     const layoutStyle = {
         background: `url(${flower})`,
         backgroundSize: "cover",
@@ -13,8 +14,8 @@ const AuthorizedLayout = ({ children }) => {
         height: "100dvh",
         width: "100%",
         padding: "1rem",
-        "overflow-x":"hidden",
-        "overflow-y":"auto"
+        "overflowX":"hidden",
+        // "overflowY":"auto"
     }
   return (
     <Box sx={layoutStyle}>

@@ -11,7 +11,7 @@ const AuthorizedTable = ({columns, rows, dropdownLabel = "Item", renderDropdownI
       };
 
   return (
-     <Box sx={{backgroundColor:"rgba(255,255,255,0.5 )"}}>
+     <Box sx={{backgroundColor:`${isSmallScreen ? "" : "rgba(255, 255, 255, 0.5)"}`}}>
       {isSmallScreen ? (
         <FormControl fullWidth>
           <InputLabel>{dropdownLabel}</InputLabel>

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
-import { Link } from "react-router-dom";
 import useAuthorized from "../../custom-hooks/useAuthorized";
 import Stack from "@mui/material/Stack";
 import Clients from "./Clients";
@@ -37,7 +36,7 @@ const Dashboard = () => {
         message: true,
         reservation: false,
       }));
-    } else {
+    } else if (textContent === "Reservations") {
       setShow((prev) => ({
         ...prev,
         client: false,
@@ -45,19 +44,28 @@ const Dashboard = () => {
         reservation: true,
       }));
     }
+    // else {
+    //   setShow((prev) => ({
+    //     ...prev,
+    //     client: false,
+    //     message: false,
+    //     reservation: false,
+    //   }));
+    // }
   };
 
   return (
     <Box
+    onClick={handleShow}
       sx={{
         display: "flex",
         flexDirection:{xs:"column", sm:"column", md:"row", lg:"row", xl:"row"},
-        justifyContent: "space-between",
-        alignItems: "flex-start",
+        // justifyContent: "space-between",
+        // alignItems: "flex-start",
         gap: "1rem",
         width: "100%",
         height: "100%",
-        p: ".5rem",
+        // p: ".5rem",
       }}
     >
       <Box
@@ -76,11 +84,11 @@ const Dashboard = () => {
           backgroundColor:"rgba(234, 184, 219,0.3)",
         }}
       >
-        <Stack onClick={handleShow} sx={{"&:hover":{cursor:"pointer"}}}>Clients</Stack>
-        <Stack onClick={handleShow} sx={{"&:hover":{cursor:"pointer"}}}>Messages</Stack>
-        <Stack onClick={handleShow} sx={{"&:hover":{cursor:"pointer"}}}>Reservations</Stack>
+        <Stack sx={{"&:hover":{cursor:"pointer"}}}>Clients</Stack>
+        <Stack sx={{"&:hover":{cursor:"pointer"}}}>Messages</Stack>
+        <Stack sx={{"&:hover":{cursor:"pointer"}}}>Reservations</Stack>
       </Box>
-      <Box sx={{width:"100%"}}>
+      <Box>
         {show.client && <Clients />}
         {show.message && <Messages />}
         {show.reservation && <Reservations />}
