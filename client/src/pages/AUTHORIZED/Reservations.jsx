@@ -1,8 +1,5 @@
 import React from 'react'
-import { Box } from '@mui/material';
 import { useSelector } from 'react-redux'
-import { DataGrid } from '@mui/x-data-grid';
-import Paper from '@mui/material/Paper';
 import AuthorizedTable from './AuthorizedTable';
 
 
@@ -33,8 +30,8 @@ const Reservations = () => {
       ),
     },
     { field: 'bedType', headerName: 'Type', width: 90 },
-    { field: 'arrival_date', headerName: 'Arrival', width: 90 },
-    { field: 'departure_date', headerName: 'Departure', width: 90 },
+    { field: 'arrival_date', headerName: 'Arrival', width: 110 },
+    { field: 'departure_date', headerName: 'Departure', width: 110 },
     {
       field: 'totalPrice',
       headerName: 'Price',
@@ -54,13 +51,14 @@ const Reservations = () => {
     id:reservation._id,
     image: reservation.roomId?.image[0],
     bedType: reservation.roomId?.bedType,
-    arrival_date : reservation.arrival_date,
-    departure_date : reservation.departure_date,
+    arrival_date :new Date(reservation.arrival_date).toLocaleDateString() ,
+    departure_date :new Date(reservation.departure_date).toLocaleDateString() ,
     totalPrice: reservation.totalPrice,
     username: reservation.userId?.username
   }))
 
   console.log(reservations);
+  console.log(new Date(reservations[0].arrival_date).toLocaleDateString());
   return (
     <AuthorizedTable
     columns={columns}
@@ -71,8 +69,14 @@ const Reservations = () => {
         <div>ID: {row.id}</div>
         <div>{row.username}</div>
         <div>(type: {row.bedType}) </div>
-        <div>(Arrival: {row.arrival_date})</div>
-        <div>(Departure: {row.departure_date})</div>
+        <div>
+        (Arrival:
+        {row.arrival_date})
+      </div>
+      <div>
+        (Departure:
+        {row.departure_date})
+      </div>
         <div>(price: {row.totalPrice})</div>
       </div>
     )}
