@@ -234,7 +234,7 @@ export default function Navbar() {
                     sx={{ "&:hover": { cursor: "pointer" } }}
                   />
                 </Box>
-                <Box onClick={()=> navigate("/authorized")}>
+                <Box onClick={()=> navigate("/authorized",{state:{from:"navbar"}})}>
                 <MessagesFromUsers />
                 </Box>
               </Box>
