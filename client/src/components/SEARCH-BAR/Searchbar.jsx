@@ -46,7 +46,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 // !--------------------------------------------
 
-const roomOptions = ["Single Room", "Double Room", "Family Room", "VIP Room"];
+const roomOptions = ["Single Room", "Double Room", "Family Room", "KING Room"];
 
 const Searchbar = () => {
   const [searchTerm, setSearchTerm] = useState("");
