@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import React from "react";
-import PaymentForm from "../../components/PAYMENT-FORM/PaymentForm";
+import PaymentForm from "../components/PAYMENT-FORM/PaymentForm";
 
 const Payment = () => {
   return (

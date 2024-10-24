@@ -1,68 +1,27 @@
 import * as React from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
-import logo from "../../assets/images/logo.png";
-import logo1 from "../../assets/images/logo-1.png";
+import logo from "../assets/images/logo.png";
+import logo1 from "../assets/images/logo-1.png";
 import ListItemButton from "@mui/material/ListItemButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import useAuthCalls from "../../custom-hooks/useAuthCalls";
-import MessagesFromUsers from "../MESSAGES-USERS/MessagesFromUsers";
+import useAuthCalls from "../custom-hooks/useAuthCalls";
+import MessagesFromUsers from "./MESSAGES-USERS/MessagesFromUsers";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import SearchBar from "./SEARCH-BAR/Searchbar";
 
-// ! styled elements for search part
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
-}));
 
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
-}));
-// !--------------------------------------------
 
 // ! Navigation
 const navigation = [
@@ -85,7 +44,7 @@ export default function Navbar() {
   const { logout } = useAuthCalls();
   const navigate = useNavigate();
 
-  console.log(user);
+  // console.log(user);
   // console.log(token);
 
   const handleDrawerToggle = () => {
@@ -197,7 +156,7 @@ export default function Navbar() {
               style={{ padding: "10px" }}
             />
           </Typography>
-          <Search sx={{ display: { xs: "none", sm: "flex", md: "flex" } }}>
+          {/* <Search sx={{ display: { xs: "none", sm: "flex", md: "flex" } }}>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -205,7 +164,8 @@ export default function Navbar() {
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
             />
-          </Search>
+          </Search> */}
+          <SearchBar/>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {navbarNavigation.map(
               (item) =>

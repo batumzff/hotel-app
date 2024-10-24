@@ -1,16 +1,14 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import AuthorizedTable from './AuthorizedTable';
-
-
+import React from "react";
+import { useSelector } from "react-redux";
+import AuthorizedTable from "./AuthorizedTable";
 
 const paginationModel = { page: 0, pageSize: 5 };
 
 const Reservations = () => {
-  const { reservations } = useSelector(state => state.authorized)
+  const { reservations } = useSelector((state) => state.authorized);
 
   const columns = [
-    { field: 'id', headerName: 'ID', width: 70 },
+    { field: "id", headerName: "ID", width: 70 },
     {
       field: "image",
       headerName: "Image",
@@ -24,64 +22,64 @@ const Reservations = () => {
             height: "100%",
             objectFit: "cover",
             objectPosition: "center center",
-            borderRadius:"50%"
+            borderRadius: "50%",
           }}
         />
       ),
     },
-    { field: 'bedType', headerName: 'Type', width: 90 },
-    { field: 'arrival_date', headerName: 'Arrival', width: 110 },
-    { field: 'departure_date', headerName: 'Departure', width: 110 },
+    { field: "bedType", headerName: "Type", width: 90 },
+    { field: "arrival_date", headerName: "Arrival", width: 110 },
+    { field: "departure_date", headerName: "Departure", width: 110 },
     {
-      field: 'totalPrice',
-      headerName: 'Price',
-      type: 'number',
+      field: "totalPrice",
+      headerName: "Price",
+      type: "number",
       width: 90,
     },
     {
-      field: 'username',
-      headerName: 'Username',
-      description: 'This column has a value getter and is not sortable.',
+      field: "username",
+      headerName: "Username",
+      description: "This column has a value getter and is not sortable.",
       sortable: false,
       width: 100,
-    }
+    },
   ];
-  
-  const rows = reservations?.map(reservation => ({
-    id:reservation._id,
+
+  const rows = reservations?.map((reservation) => ({
+    id: reservation._id,
     image: reservation.roomId?.image[0],
     bedType: reservation.roomId?.bedType,
-    arrival_date :new Date(reservation.arrival_date).toLocaleDateString() ,
-    departure_date :new Date(reservation.departure_date).toLocaleDateString() ,
-    totalPrice: reservation.totalPrice,
-    username: reservation.userId?.username
-  }))
+    arrival_date: new Date(reservation.arrival_date).toLocaleDateString(),
+    departure_date: new Date(reservation.departure_date).toLocaleDateString(),
+    totalPrice: `$${reservation.totalPrice}`,
+    username: reservation.userId?.username,
+  }));
 
-  console.log(reservations);
-  console.log(new Date(reservations[0].arrival_date).toLocaleDateString());
+  // console.log(reservations);
+  // console.log(new Date(reservations[0].arrival_date).toLocaleDateString());
   return (
     <AuthorizedTable
-    columns={columns}
-    rows={rows}
-    dropdownLabel="Reservations"
-    renderDropdownItem={(row) => (
-      <div>
-        <div>ID: {row.id}</div>
-        <div>{row.username}</div>
-        <div>(type: {row.bedType}) </div>
+      columns={columns}
+      rows={rows}
+      dropdownLabel="Reservations"
+      renderDropdownItem={(row) => (
         <div>
-        (Arrival:
-        {row.arrival_date})
-      </div>
-      <div>
-        (Departure:
-        {row.departure_date})
-      </div>
-        <div>(price: {row.totalPrice})</div>
-      </div>
-    )}
+          <div>ID: {row.id}</div>
+          <div>{row.username}</div>
+          <div>(type: {row.bedType}) </div>
+          <div>
+            (Arrival:
+            {row.arrival_date})
+          </div>
+          <div>
+            (Departure:
+            {row.departure_date})
+          </div>
+          <div>(price: ${row.totalPrice})</div>
+        </div>
+      )}
     />
-  )
-}
+  );
+};
 
-export default Reservations
+export default Reservations;

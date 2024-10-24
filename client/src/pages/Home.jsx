@@ -1,6 +1,5 @@
 import { Box, Stack, Typography } from "@mui/material";
-import RoomCard from "../../components/ROOM-CARD/RoomCard";
-import ImageSlider from "../../components/IMAGE-SLIDER/ImageSlider";
+import ImageSlider from "../components/IMAGE-SLIDER/ImageSlider";
 import { useNavigate } from "react-router-dom";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
@@ -8,9 +7,10 @@ const Home = () => {
   const navigate = useNavigate();
 
   const handleNavigate = (e) => {
-    e.target.textContent == "Book Now"
-      ? navigate("/booking")
-      : navigate("/rooms");
+    // e.target.textContent == "Book Now"
+    //   ? navigate("/booking")
+    //   : navigate("/rooms");
+    navigate( "/rooms")
   };
 
   return (
@@ -20,10 +20,11 @@ const Home = () => {
         justifyContent: "center",
         flexDirection: "column",
         alignItems: "center",
+        color:"white"
       }}
     >
-      <Typography variant="h3">Welcome to PyScript Hotels Group</Typography>
-      {/* <RoomCard/> */}
+      <Typography variant="h3">PyScript Hotels Group</Typography>
+      {/* IMAGE-SLIDER */}
       <ImageSlider />
       <Stack
         sx={{
@@ -70,7 +71,7 @@ const Home = () => {
             display: "flex",
             alignItems: "center",
             transition: "color 0.3s",
-            color: "inherit",
+            color: "white",
             "&:hover": {
               color: "red",
             },
@@ -101,7 +102,7 @@ const Home = () => {
           gap: "1rem",
           backgroundColor:"rgba(0,0,0,0.1)",
           padding:".5rem",
-          
+          color:"inherit"
           
         }}
       >
@@ -120,8 +121,8 @@ const Home = () => {
           Our beautifully appointed rooms and suites are designed with your
           comfort in mind, offering luxurious bedding, modern amenities, and
           stunning views of the surrounding city or serene landscapes. Whether
-          you’re here to explore the bustling streets of California, indulge in
-          a romantic getaway, or attend a business meeting, you’ll find
+          you're here to explore the bustling streets of California, indulge in
+          a romantic getaway, or attend a business meeting, you'll find
           everything you need to relax and rejuvenate.
         </Typography>
         <Typography variant="h6" component="p" sx={{fontWeight:"bold"}}>
@@ -140,12 +141,12 @@ const Home = () => {
         </Typography>
         <Typography variant="h6" component="p" sx={{fontWeight:"bold"}}>
           We invite you to discover a world of comfort, convenience, and
-          relaxation at PyScript Hotel. Whether it’s your first visit or you’re
+          relaxation at PyScript Hotel. Whether it's your first visit or you're
           a returning guest, we are committed to making your stay as enjoyable
           and memorable as possible.
         </Typography>
       </Box>
-      <Typography variant="h5" sx={{fontWeight:"bolder"}}>Where you’ll be</Typography>
+      <Typography variant="h5" sx={{fontWeight:"bolder", color:"white"}}>Where you'll be</Typography>
       <iframe
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d145864.40742311336!2d-120.10493419337175!3d36.11350908185277!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fb9fe5f285e3d%3A0x8b5109a227086f55!2sKaliforniya%2C%20Amerika%20Birle%C5%9Fik%20Devletleri!5e0!3m2!1str!2str!4v1725877622901!5m2!1str!2str"
         width="80%"

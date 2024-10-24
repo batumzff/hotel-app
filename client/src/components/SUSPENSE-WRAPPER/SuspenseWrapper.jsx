@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import { useLocation } from "react-router-dom";
-import Loading from "../LOADING/Loading";
+import Loading from "../Loading";
 import CardSkeleton from "../SKELETON/CardSkeleton";
 
 const SuspenseWrapper = ({ children }) => {

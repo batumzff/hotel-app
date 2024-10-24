@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import useBooking from "../../custom-hooks/useBooking";
+import useBooking from "../custom-hooks/useBooking";
 import { Box, Stack, Typography } from "@mui/material";
-import Calendar from "../FORM-INPUTS/Calendar";
-import MyButton from "../FORM-INPUTS/MyButton";
-import useRooms from "../../custom-hooks/useRooms";
-import ErrorModal from "../ERROR-MODAL/ErrorModal";
+import Calendar from "./FORM-INPUTS/Calendar";
+import MyButton from "./FORM-INPUTS/MyButton";
+import useRooms from "../custom-hooks/useRooms";
+import ErrorModal from "./ERROR-MODAL/ErrorModal";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 
@@ -20,11 +20,11 @@ const Booking = () => {
 
   const location = useLocation();
 
-  console.log(location.pathname.split("/")[1]);
+  // console.log(location.pathname.split("/")[1]);
   const path = location.pathname.split("/")[1];
 
   // console.log(roomId);
-  console.log(roomDetail);
+  // console.log(roomDetail);
 
   const { getRoomsInfo } = useRooms();
   const { getReservationInfo } = useBooking();
@@ -45,14 +45,14 @@ const Booking = () => {
   // console.log("rooms: ", rooms);
   // console.log("user in booking: ", user);
 
-  console.log(
-    "calendarRef.current: ",
-    calendarRef.current?.getSelectedDateRange().arrival_date
-  );
-  console.log(
-    "calendarRef.current: ",
-    calendarRef.current?.getSelectedDateRange().departure_date
-  );
+  // console.log(
+  //   "calendarRef.current: ",
+  //   calendarRef.current?.getSelectedDateRange().arrival_date
+  // );
+  // console.log(
+  //   "calendarRef.current: ",
+  //   calendarRef.current?.getSelectedDateRange().departure_date
+  // );
 
  
   const handleSubmit = () => {
@@ -70,7 +70,7 @@ const Booking = () => {
       price: totalPrice ,
       // guest_number: selectedGuestNumber,
     };
-    console.log("postData: ", postData);
+    // console.log("postData: ", postData);
     reservation(postData);
     navigate("/payment", {
       state: {

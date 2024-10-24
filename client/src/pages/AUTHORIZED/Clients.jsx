@@ -16,7 +16,7 @@ const Clients = () => {
   
 
   const columns = [
-    { field: "id", headerName: "ID", width: 70 },
+    { field: "id", headerName: "ID", width: 150 },
     {
       field: "image",
       headerName: "Image",
@@ -35,7 +35,7 @@ const Clients = () => {
         />
       ),
     },
-    { field: "username", headerName: "Username", width: 100 },
+    { field: "username", headerName: "Username", width: 120 },
     // { field: 'firstName', headerName: 'First name', width: 130 },
     // { field: 'lastName', headerName: 'Last name', width: 130 },
 
@@ -44,7 +44,7 @@ const Clients = () => {
       headerName: "Full name",
       description: "This column has a value getter and is not sortable.",
       sortable: false,
-      width: 160,
+      width: 200,
       valueGetter: (value, row) =>
         `${row.firstName || ""} ${row.lastName || ""}`,
     },
@@ -71,7 +71,7 @@ const Clients = () => {
 
   const paginationModel = { page: 0, pageSize: 5 };
 
-  console.log(clients);
+  // console.log(clients);
 
   return (
     <AuthorizedTable

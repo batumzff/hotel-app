@@ -1,7 +1,7 @@
 import React from "react";
-import AuthForm from "../../components/AUTH-FORM/AuthForm";
+import AuthForm from "../components/AUTH-FORM/AuthForm";
 import  Stack  from "@mui/material/Stack";
-import ErrorModal from "../../components/ERROR-MODAL/ErrorModal"
+import ErrorModal from "../components/ERROR-MODAL/ErrorModal"
 
 
 const Register = () => {

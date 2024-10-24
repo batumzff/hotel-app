@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import MyModal from "../../components/MODAL/MyModal";
-import MyButton from "../../components/FORM-INPUTS/MyButton";
+import MyModal from "../components/MODAL/MyModal";
+import MyButton from "../components/FORM-INPUTS/MyButton";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";

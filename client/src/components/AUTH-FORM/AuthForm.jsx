@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import useAuthCalls from "../../custom-hooks/useAuthCalls";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { loginSchema, registerSchema } from "../../Helpers/formValidation";
-import { formRegisterInputs, formLoginInputs } from "../../Helpers/formInputs";
+import { loginSchema, registerSchema } from "../../helpers/formValidation";
+import { formRegisterInputs, formLoginInputs } from "../../helpers/formInputs";
 import { DevTool } from "@hookform/devtools";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -43,7 +43,7 @@ const AuthForm = ({ formType, schema }) => {
   } = useForm({ resolver: yupResolver(resolvedSchema) });
 
   const onSubmit = (data) => {
-    console.log("submit data", data);
+    // console.log("submit data", data);
     formType == "register"
       ? dispatch(registerUser(data))
       : dispatch(login(data));
@@ -54,7 +54,7 @@ const AuthForm = ({ formType, schema }) => {
   }, [isSubmitSuccessful, reset]);
 
   const handleNavigate = () => {
-    console.log("handle navigate active");
+    // console.log("handle navigate active");
     formType === "login" ? navigate("/register") : navigate("/login");
   };
 

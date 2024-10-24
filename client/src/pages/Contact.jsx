@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import useAxios from "../../custom-hooks/useAxios"
+import useAxios from "../custom-hooks/useAxios"
 import {
   Box,
   Grid,
@@ -24,32 +24,22 @@ const Contact = () => {
   } = useForm();
 
   const {axiosWithToken} = useAxios()
-console.log(user)
+// console.log(user)
   const onSubmit = async (data) => {
-    console.log("Form Data: ", data);
+    // console.log("Form Data: ", data);
     const message = await axiosWithToken.post("messages", {content:data.message, userId:user?.id})
-    console.log(message)
+    // console.log(message)
     alert("Your message has been sent successfully!");
     reset();
   };
 
-  const silinecek = async()=>{
-    const data = await axiosWithToken("messages")
-    console.log(data)
-  }
-
-  useEffect(() => {
-    silinecek()
-  }, [])
-  
-
   return (
-    <Box sx={{ p: 4, maxWidth: "lg", margin: "0 auto" }}>
+    <Box sx={{ p: 4, maxWidth: "lg", margin: "0 auto", color:"white" }}>
       {/* Title Section */}
       <Typography variant="h3" align="center" gutterBottom>
         Get in Touch with Us
       </Typography>
-      <Typography variant="h6" align="center" color="textSecondary" sx={{ mb: 4 }}>
+      <Typography variant="h6" align="center" color="white" sx={{ mb: 4,  textShadow:"1px 3px 10px rgba(1, 10, 10, 0.8)" }}>
         We'd love to hear from you. Whether you have questions about your stay, feedback, or
         any other inquiries, feel free to reach out.
       </Typography>

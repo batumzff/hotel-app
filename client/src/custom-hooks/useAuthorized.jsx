@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useDispatch } from "react-redux";
 import useAxios from "./useAxios";
@@ -17,9 +16,9 @@ const useAuthorized = () => {
         // axiosWithToken("messages"),
         axiosWithToken("reservations"),
       ]);
-      console.log(clients);
+      // console.log(clients);
       // console.log(messages);
-      console.log(reservations);
+      // console.log(reservations);
       dispatch(
         getData([
           clients?.data?.data,
@@ -29,7 +28,7 @@ const useAuthorized = () => {
       );
     } catch (error) {
       dispatch(fetchFail(error));
-      console.error(error);
+      // console.error(error);
     }
   };
   return { getAuthorizedData };

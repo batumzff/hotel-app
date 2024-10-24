@@ -16,13 +16,13 @@ const useMessages = () => {
       }
 
       const { data } = await axiosWithToken(url);
-      console.log("get Messages : ", data);
+      // console.log("get Messages : ", data);
 
       dispatch(getMessages(data));
-      await readUnreadInfo()
+     await readUnreadInfo()
     } catch (error) {
       dispatch(fetchFail());
-      console.error(error);
+      // console.error(error);
     }
   };
 
@@ -31,10 +31,10 @@ const useMessages = () => {
     try {
       const { data } = await axiosWithToken(`messages/${url}`)
       dispatch(getMessageStatus({url, data}))
-      console.log("read unread:", data);
+      // console.log("read unread:", data);
     } catch (error) {
       dispatch(fetchFail());
-      console.error(error);
+      // console.error(error);
     }
   }
 

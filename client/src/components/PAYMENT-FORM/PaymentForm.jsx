@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Button, CircularProgress, TextField, Alert } from "@mui/material";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { useSelector } from "react-redux";
-import { cardSchema } from "../../Helpers/formValidation";
+import { cardSchema } from "../../helpers/formValidation";
 import { useLocation, useNavigate } from "react-router-dom";
 import useBooking from "../../custom-hooks/useBooking";
 import useAxios from "../../custom-hooks/useAxios";
@@ -22,11 +22,11 @@ const PaymentForm = () => {
   const location = useLocation()
   const { from, data:{total} } = location.state || {}
 
-  console.log("from: ", from);
-  console.log("data from location: ", total);
+  // console.log("from: ", from);
+  // console.log("data from location: ", total);
 
-  console.log(user);
-  console.log(booking);
+  // console.log(user);
+  // console.log(booking);
 
   const { getReservationInfo } = useBooking();
 
@@ -65,7 +65,7 @@ const PaymentForm = () => {
       setErrorMessage(error.message);
       setLoading(false);
     } else {
-      console.log("Payment method created:", paymentMethod);
+      // console.log("Payment method created:", paymentMethod);
       setPaymentSucceeded(true);
       setLoading(false);
 
@@ -75,7 +75,7 @@ const PaymentForm = () => {
         currency: "usd",
         status: true,
       });
-      console.log(result.data);
+      // console.log(result.data);
       // Make API call to save payment and finalize the transaction
     }
   };

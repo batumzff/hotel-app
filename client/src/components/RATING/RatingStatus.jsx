@@ -11,9 +11,9 @@ export default function RatingStatus({ roomRating, readOnlyStatus, roomId }) {
   const [ratings, setRatings] = useState(0);
   // console.log("rating component: ", roomRating);
   // console.log("rating component: ", roomsRatings);
-  console.log("rating component rooms: ", roomDetail);
-  console.log("rating component rooms: ", roomId);
-console.log(user);
+//   console.log("rating component rooms: ", roomDetail);
+//   console.log("rating component rooms: ", roomId);
+// console.log(user);
 const handleRating = (e, newValue) => {
 
   const ratingValue = Number(newValue);

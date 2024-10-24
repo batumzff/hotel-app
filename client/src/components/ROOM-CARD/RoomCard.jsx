@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useMemo } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -18,7 +18,7 @@ import { Box, Stack } from "@mui/material";
 import MyButton from "../FORM-INPUTS/MyButton";
 import Grid from "@mui/material/Grid2"; // Import Grid from material UI
 import RatingStatus from "../RATING/RatingStatus";
-import Booking from "../BOOKING/Booking";
+import Booking from "../Booking";
 import SocialMediaModal from "../SOCIAL-MEDIA/SocialMediaModal";
 
 const StyledLink = styled(Link)`
@@ -37,7 +37,13 @@ function RoomCard() {
   const { getRoomsInfo } = useRooms();
   const navigate = useNavigate();
 
-  console.log(token);
+  const location = useLocation()
+  // console.log(location);
+
+  const filteredRoomsToShow = rooms?.filter(room => location?.state?.from?.toLowerCase().includes(room.bedType)  ) || []
+  // console.log(filteredRoomsToShow);
+
+  // console.log(token);
 
   const handleNavigate = (id) => {
     navigate(`/room-detail/${id}`);
@@ -47,8 +53,11 @@ function RoomCard() {
     roomId ? getRoomsInfo("roomDetail", roomId) : getRoomsInfo();
   }, [roomId]);
 
-  console.log(roomId);
-  console.log(roomDetail);
+  // console.log(rooms);
+  // console.log(roomId);
+  // console.log(roomDetail);
+  const mapRooms =useMemo(() => filteredRoomsToShow.length > 0 ? filteredRoomsToShow : rooms, [filteredRoomsToShow,rooms]) 
+  // console.log(mapRooms);
 
   return (
     <Grid container spacing={4} sx={{ placeContent: "center" }}>
@@ -126,10 +135,10 @@ function RoomCard() {
           </Box>
         </Box>
       ) : (
-        rooms.map((room) => (
+        mapRooms.map((room) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={room._id}>
             <Card
-              sx={{ mt: "1rem", backgroundColor: "rgba(90, 145, 197, 0.7)" }}
+              sx={{ mt: "1rem", backgroundColor: "rgba(90, 145, 197, 0.7)", color:"#fff" }}
             >
               <CardHeader
                 avatar={
@@ -140,11 +149,7 @@ function RoomCard() {
                     {room.roomNumber}
                   </Avatar>
                 }
-                // action={
-                //   <IconButton aria-label="settings">
-                //     <MoreVertIcon />
-                //   </IconButton>
-                // }
+              
                 title={room.bedType}
                 subheader={new Date(room.createdAt).toLocaleDateString()}
               />
@@ -168,7 +173,7 @@ function RoomCard() {
                   variant="body2"
                   sx={{
                     width: "25rem",
-                    color: "text.secondary",
+                    color: "#fff",
                     webkitBoxOrient: "vertical",
                     webkitLineClamp: "3",
                     overflow: "hidden",
@@ -186,11 +191,12 @@ function RoomCard() {
               <CardActions
                 sx={{ display: "flex", justifyContent: "space-around" }}
               >
+                {/* RATING */}
                 <RatingStatus readOnlyStatus={room.averageRating} />
-                {/* <IconButton aria-label="share">
-                          <ShareIcon />
-                        </IconButton> */}
+
+               {/* SOCIAL MEDIA SHARE */}
                 <SocialMediaModal />
+                
                 <MyButton onClick={() => handleNavigate(room._id)}>
                   Detail
                 </MyButton>

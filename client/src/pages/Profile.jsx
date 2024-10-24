@@ -1,7 +1,7 @@
 import React from "react";
 import Box from "@mui/material/Box";
-import PersonalInfo from "../../components/PERSONAL-INFO/PersonalInfo";
-import PersonalReservation from "../../components/PERSONAL-RESERVATION/PersonalReservation";
+import PersonalInfo from "../components/PERSONAL-INFO/PersonalInfo";
+import PersonalReservation from "../components/PERSONAL-RESERVATION/PersonalReservation";
 
 const Profile = () => {
  

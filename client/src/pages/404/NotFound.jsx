@@ -14,7 +14,7 @@ const NotFound = () => {
         backgroundPosition: "center center",
         backgroundRepeat: "no-repeat",
         width: "100%",
-        height: "calc(100vh - 90px)",
+        height: "calc(100vh - 76px)",
         position: "absolute",
         zIndex: "99",
       }}

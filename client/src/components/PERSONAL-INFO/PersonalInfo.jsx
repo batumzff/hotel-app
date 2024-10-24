@@ -4,13 +4,13 @@ import Typography from "@mui/material/Typography";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useSelector } from "react-redux";
-import { formRegisterInputs } from "../../Helpers/formInputs";
+import { formRegisterInputs } from "../../helpers/formInputs";
 import AuthForm from "../AUTH-FORM/AuthForm";
 import { IconButton, Stack, TextField } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { registerSchema } from "../../Helpers/formValidation";
+import { registerSchema } from "../../helpers/formValidation";
 import MyButton from "../FORM-INPUTS/MyButton";
 import CloseIcon from "@mui/icons-material/Close";
 import useAuthCalls from "../../custom-hooks/useAuthCalls";
@@ -27,16 +27,13 @@ const handleForm = () => {
 }
   const {
     register,
-    control,
     handleSubmit,
-    formState: { errors, isSubmitting, isSubmitSuccessful, isDirty },
-    setValue,
-    getValues,
+    formState: { errors, isSubmitting, isSubmitSuccessful },
     reset,
   } = useForm({ resolver: yupResolver(registerSchema) });
 
   const onSubmit = (data) => {
-    console.log("submit data", data);
+    // console.log("submit data", data);
     updateUser(id, data);
   };
 
@@ -48,14 +45,14 @@ const handleForm = () => {
 
   const handleClickShowPassword = () => setShowPassword((prev) => !prev);
 
-  console.log(user);
+  // console.log(user);
 
   return (
-    <Box sx={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", gap:"1rem", padding:"1rem"}}>
+    <Box sx={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", gap:"1rem", padding:"1rem", color: "white"}}>
       {user?.image ? (
         <img src={user?.image} alt={user?.username} width={350} style={{borderRadius:"20%"}} className="profile-img" />
       ) : (
-        <AccountCircleIcon sx={{ fontSize: "10rem", color: "#1976D2" }} />
+        <AccountCircleIcon sx={{ fontSize: "10rem", color: "white" }} />
       )}
       <Typography>{user?.username}</Typography>
       <Typography>{user?.biography}</Typography>

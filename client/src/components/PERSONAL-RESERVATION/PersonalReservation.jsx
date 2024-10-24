@@ -18,7 +18,7 @@ const PersonalReservation = () => {
   useEffect(() => {
     getReservationInfo(id);
   }, []);
-  console.log(booking);
+  // console.log(booking);
   const showReservations = () => {
     setOpen((prev) => !prev);
   };

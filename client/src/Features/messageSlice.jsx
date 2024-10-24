@@ -21,14 +21,14 @@ const messageSlice = createSlice({
         state.message = payload?.data
         state.loading = false
         state.error = false
-        console.log("getMessages in message slice",payload);
+        // console.log("getMessages in message slice",payload);
     },
 
    getMessageStatus: (state, { payload }) => {
         state[payload.url] = payload?.data?.data
         state.loading = false
         state.error = false
-        console.log("getMessageStatus in message slice",payload);
+        // console.log("getMessageStatus in message slice",payload);
     },
 
     fetchFail: (state) => {

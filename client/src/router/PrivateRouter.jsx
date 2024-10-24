@@ -2,41 +2,18 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { Navigate, NavLink, Outlet } from 'react-router-dom'
 
-// const PrivateRouter = ({allowedRoles=[]}) => {
-//   const { user } = useSelector(state => state.auth)
-//   // const user = true
-//   if (!user) {
-//     return <Navigate to="/login" replace />;
-//   }
-//   const userRoles = [];
-//   if (user.isAdmin) userRoles.push("admin");
-//   if (user.isStaff) userRoles.push("staff");
-//   // if (user.isActive) userRoles.push("user");
-
-//   if (!user || !user.isActive) {
-//     return <Navigate to="/login" replace />;
-//   }
-
-//   const hasRequiredRole = allowedRoles.some(role => userRoles.includes(role));
-
-//   if (allowedRoles.length > 0 && !hasRequiredRole) {
-//     return <Navigate to="/unauthorized" replace />;
-//   }
-
-//   return <Outlet />;
-// }
 
 const PrivateRouter = ({ allowedRoles = [] }) => {
   const { user,token } = useSelector(state => state.auth);
-  console.log(user);
-console.log(token);
-console.log(allowedRoles);
-  
-  if (!user || !user.isActive ) {
+//   console.log(user);
+// console.log(token);
+// console.log(allowedRoles);
+  // If user is not logged in or not active, redirect to login
+  if (!user || !user.isActive || !token) {
     return <Navigate to="/login" replace />;
   }
 
-  
+  // Collect user roles based on flags from the backend
   const userRoles = [];
 
   if (user.isActive) userRoles.push("user");
@@ -44,15 +21,15 @@ console.log(allowedRoles);
   if (user.isStaff) userRoles.push("staff");
 
 
-  
+  // Check if the user has any of the required roles
   const hasRequiredRole = allowedRoles.some(role => userRoles.includes(role));
-console.log(hasRequiredRole);
-  
+// console.log(hasRequiredRole);
+  // If roles are required but the user lacks them, redirect to unauthorized
   if (allowedRoles.length > 0 && !hasRequiredRole) {
     return <Navigate to="/unauthorized" replace />;
   }
 
-  
+  // If all checks pass, render the child routes
   return <Outlet />;
 };
 

@@ -18,11 +18,11 @@ const useBooking = () => {
         "reservations",
         reservationInfo
       );
-      console.log(data);
+      // console.log(data);
       dispatch(getReservation(data));
     } catch (error) {
       dispatch(fetchFail(error));
-      console.error(error);
+      // console.error(error);
     }
   };
 
@@ -35,11 +35,11 @@ const useBooking = () => {
         url = `reservations?filter[userId]=${userId}&sort[createdAt]=desc`;
       }
       const { data } = await axiosWithToken(url);
-      console.log(data);
+      // console.log(data);
       dispatch(getReservation(data));
     } catch (error) {
       dispatch(fetchFail(error));
-      console.error(error);
+      // console.error(error);
     }
   };
 
