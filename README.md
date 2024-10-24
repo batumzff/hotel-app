@@ -124,7 +124,7 @@ STRIPE_SECRET_KEY=your_stripe_secret_key
 ```
 4. Start the server:
 ```bash
-npm start
+node index.js
 ```
 
 
