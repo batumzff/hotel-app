@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Button, CircularProgress, TextField, Alert } from "@mui/material";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { useSelector } from "react-redux";
-import { cardSchema } from "../../helpers/formValidation";
+import { cardSchema } from "../../Helpers/formValidation";
 import { useLocation, useNavigate } from "react-router-dom";
 import useBooking from "../../custom-hooks/useBooking";
 import useAxios from "../../custom-hooks/useAxios";
