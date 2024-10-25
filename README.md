@@ -158,10 +158,10 @@ pnpm run dev
 - POST /rooms - Create a new room (Admin only).
 - PATCH /rooms/:id - Update room details (Admin only).
 - DELETE /rooms/:id - Delete a room (Admin only).
-Reservations
-POST /reservations - Make a new reservation.
-GET /reservations - Get all user reservations.
-DELETE /reservations/:id - Cancel a reservation.
-Payments
-POST /payments - Process Stripe payment.
+**Reservations**
+- POST /reservations - Make a new reservation.
+- GET /reservations - Get all user reservations.
+- DELETE /reservations/:id - Cancel a reservation.
+**Payments**
+- POST /payments - Process Stripe payment.
 
