@@ -150,18 +150,18 @@ pnpm run dev
 4. Administrators can manage rooms, view reservations, and handle user messages.
 
 ### API Endpoints
-**Authentication**
+### **Authentication**
 - POST /auth/register - Register a new user.
 - POST /auth/login - Log in an existing user.
-**Rooms**
+### **Rooms**
 - GET /rooms - Retrieve all available rooms.
 - POST /rooms - Create a new room (Admin only).
 - PATCH /rooms/:id - Update room details (Admin only).
 - DELETE /rooms/:id - Delete a room (Admin only).
-**Reservations**
+### **Reservations**
 - POST /reservations - Make a new reservation.
 - GET /reservations - Get all user reservations.
 - DELETE /reservations/:id - Cancel a reservation.
-**Payments**
+### **Payments**
 - POST /payments - Process Stripe payment.
 
