@@ -151,13 +151,13 @@ pnpm run dev
 
 ### API Endpoints
 **Authentication**
--POST /auth/register - Register a new user.
--POST /auth/login - Log in an existing user.
+- POST /auth/register - Register a new user.
+- POST /auth/login - Log in an existing user.
 **Rooms**
--GET /rooms - Retrieve all available rooms.
--POST /rooms - Create a new room (Admin only).
--PATCH /rooms/:id - Update room details (Admin only).
--DELETE /rooms/:id - Delete a room (Admin only).
+- GET /rooms - Retrieve all available rooms.
+- POST /rooms - Create a new room (Admin only).
+- PATCH /rooms/:id - Update room details (Admin only).
+- DELETE /rooms/:id - Delete a room (Admin only).
 Reservations
 POST /reservations - Make a new reservation.
 GET /reservations - Get all user reservations.
